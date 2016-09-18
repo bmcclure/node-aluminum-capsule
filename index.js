@@ -9,8 +9,8 @@ module.exports = {
         gulp = setGulp;
         config = setConfig;
     },
-    gulpTask: function (name, subtask, sourceDir) {
-        return gulpTask(name, subtask, sourceDir);
+    gulpTask: function (name) {
+        require('./gulp-tasks/' + task)(gulp, config);
     },
     gulpTasks: function (tasks) {
         tasks = tasks || [
@@ -24,7 +24,7 @@ module.exports = {
             ];
 
         tasks.forEach(function (task) {
-            require('./gulp-tasks/' + task);
+            require('./gulp-tasks/' + task)(gulp, config);
         });
 
         gulp.task('default', ['watch']);
