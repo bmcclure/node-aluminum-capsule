@@ -8,7 +8,7 @@ var browserSync = require('browser-sync').create;
  * Options are defaulted, but can be overridden within your config.js file.
  */
 module.exports = function (gulp, config) {
-    gulp.task('browser-sync', 'Spawn a Browser Sync instance', function () {
+    gulp.task('browser-sync', function () {
         if (!config.browserSync.enabled) {
             return;
         }

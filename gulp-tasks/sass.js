@@ -16,7 +16,7 @@ module.exports = function (gulp, config) {
     var mapsDir = config.sass.mapsDir || appRootDir + '/maps';
     var loadPath = config.sass.loadPath || appRootDir + '/css/*';
 
-    gulp.task('sass', 'Generate compressed CSS from all SCSS files', function () {
+    gulp.task('sass', function () {
         if (!config.sass.enabled) {
             return;
         }

@@ -16,7 +16,7 @@ function drushCommand(command) {
 }
 
 module.exports = function (gulp, config) {
-    gulp.task('drush:cc', 'Clear the Drupal CSS and JS caches', function () {
+    gulp.task('drush:cc', function () {
         if (!config.drush.enabled) {
             return;
         }
@@ -32,7 +32,7 @@ module.exports = function (gulp, config) {
             }));
     });
 
-    gulp.task('drush:cr', 'Rebuild the Drupal theme cache', function () {
+    gulp.task('drush:cr', function () {
         if (!config.drush.enabled) {
             return;
         }

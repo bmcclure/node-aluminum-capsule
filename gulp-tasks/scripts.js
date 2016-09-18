@@ -14,7 +14,7 @@ module.exports = function (gulp, config) {
     var mapsDir = config.scripts.mapsDir || appRootDir + '/maps';
     var destination = config.scripts.destination || appRootDir + '/js';
 
-    gulp.task('scripts', 'Generate compressed JS from all JS sources', function () {
+    gulp.task('scripts', function () {
         if (!config.scripts.enabled) {
             return;
         }

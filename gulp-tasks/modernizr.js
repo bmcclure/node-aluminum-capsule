@@ -5,7 +5,7 @@ var modernizr = require('gulp-modernizr');
 var appRootDir = require('app-root-dir').get();
 
 module.exports = function (gulp, config) {
-    gulp.task('modernizr', 'Create a Modernizr build with Customizr', function () {
+    gulp.task('modernizr', function () {
         if (!config.modernizr.enabled) {
             return;
         }

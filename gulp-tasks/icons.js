@@ -5,7 +5,7 @@ var appRootDir = require('app-root-dir').get();
 var svgSprite = require('gulp-svg-sprites');
 
 module.exports = function (gulp, config) {
-    gulp.task('icons', 'Generate a sprite and CSS file from a set of SVG icons', function () {
+    gulp.task('icons', function () {
         var iconFiles = config.icons.iconFiles || [appRootDir + '/src/icons/*.svg'];
         var iconDestination = config.icons.destination || "images";
         var cssFile = config.icons.cssFile || "src/scss/_icons.scss";

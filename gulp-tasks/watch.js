@@ -27,7 +27,7 @@ module.exports = function (gulp, config) {
     var jsFiles = config.scripts.watchFiles || ['js-src/**/*.js'];
     var twigFiles = config.twig.watchFiles || ['templates/**/*.html.twig'];
 
-    return function () {
+    gulp.task('watch', function () {
         // watch scss for changes and clear drupal theme cache on change
         watchTask(sassFiles, "sass", { "drush": ["drush:cc"] });
 
@@ -38,5 +38,5 @@ module.exports = function (gulp, config) {
         if (config.twig.enabled && !config.twig.useCache && config.drush.enabled) {
             gulp.watch(twigFiles, ['drush:cr']);
         }
-    }
+    });
 };
