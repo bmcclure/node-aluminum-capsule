@@ -1,0 +1,42 @@
+{
+  "name": "aluminum-capsule",
+  "version": "0.1.0",
+  "description": "A front-end companion to the aluminum module and/or spacelift base theme for Drupal.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TopFloorTech/node-aluminum-capsule"
+  },
+  "author": {
+    "name": "Ben McClure",
+    "email": "bmcclure@topfloortech.com",
+    "url": "http://www.topfloortech.com"
+  },
+  "files": [
+    "index.js",
+    "gulp-tasks",
+    "lib"
+  ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "dependencies": {
+    "app-root-dir": "^1.0.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.16.0",
+    "gulp": "^3.9.1",
+    "gulp-modernizr": "^1.0.0-alpha",
+    "gulp-notify": "^2.2.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-shell": "^0.5.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "mocha": "^2.5.3"
+  }
+}
