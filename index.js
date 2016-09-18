@@ -4,22 +4,6 @@
 var config = {};
 var gulp = require('gulp');
 
-function gulpTask(task, sourceDir) {
-    sourceDir = sourceDir || './gulp-tasks';
-
-    var parts = task.split(':');
-    var name = parts[0];
-    var subtask = parts[1] || false;
-
-    var module = require(sourceDir + '/' + name);
-
-    if (subtask) {
-        module = module[subtask];
-    }
-
-    gulp.task(task, module(gulp, config));
-}
-
 module.exports = {
     setConfig: function (setGulp, setConfig) {
         gulp = setGulp;
@@ -34,14 +18,13 @@ module.exports = {
                 'sass',
                 'scripts',
                 'modernizr',
-                'drush:cc',
-                'drush:cr',
+                'drush',
                 'browser-sync',
                 'watch'
             ];
 
         tasks.forEach(function (task) {
-            gulpTask(task);
+            require('./gulp-tasks/' + task);
         });
 
         gulp.task('default', ['watch']);
