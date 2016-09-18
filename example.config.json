@@ -1,0 +1,37 @@
+{
+    "browserSync": {
+        "enabled": true,
+        "hostname": "localhost"
+    },
+    "drush": {
+        "enabled": false,
+        "watchDelay": 5000
+    },
+    "icons": {
+        "enabled": true,
+        "watch": true
+    },
+    "kbox": {
+        "enabled": true
+    },
+    "modernizr": {
+        "enabled": true,
+        "options": {
+            "tests": [],
+            "excludeTests": []
+        }
+    },
+    "sass": {
+        "enabled": true,
+        "watch": true
+    },
+    "scripts": {
+        "enabled": true,
+        "watch": true
+    },
+    "twig": {
+        "enabled": true,
+        "watch": true,
+        "useCache": true
+    }
+}

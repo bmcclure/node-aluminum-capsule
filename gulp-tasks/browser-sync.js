@@ -8,13 +8,17 @@ var browserSync = require('browser-sync').create;
  * Options are defaulted, but can be overridden within your config.js file.
  */
 module.exports = function (gulp, config) {
-  return function () {
-    browserSync.init({
-      port: config.browserSync.port,
-      proxy: config.browserSync.hostname,
-      open: config.browserSync.openAutomatically,
-      reloadDelay: config.browserSync.reloadDelay,
-      injectChanges: config.browserSync.injectChanges
+    gulp.task('browser-sync', 'Spawn a Browser Sync instance', function () {
+        if (!config.browserSync.enabled) {
+            return;
+        }
+
+        browserSync.init({
+            port: config.browserSync.port || 80,
+            proxy: config.browserSync.hostname || "localhost",
+            open: config.browserSync.openAutomatically || false,
+            reloadDelay: config.browserSync.reloadDelay || 50,
+            injectChanges: config.browserSync.injectChanges || true
+        });
     });
-  }
 };

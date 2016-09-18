@@ -14,16 +14,20 @@ module.exports = function (gulp, config) {
     var mapsDir = config.scripts.mapsDir || appRootDir + '/maps';
     var destination = config.scripts.destination || appRootDir + '/js';
 
-    return function () {
-      return gulp.src(sources)
-        .pipe(sourcemaps.init())
-        .pipe(uglify())
-        .pipe(sourcemaps.write(mapsDir))
-        .pipe(gulp.dest(destination))
-        .pipe(notify({
-          title: "JS Compiled",
-          message: "All JS files in the theme have been compiled.",
-          onLast: true
-        }));
-    }
+    gulp.task('scripts', 'Generate compressed JS from all JS sources', function () {
+        if (!config.scripts.enabled) {
+            return;
+        }
+
+        return gulp.src(sources)
+            .pipe(sourcemaps.init())
+            .pipe(uglify())
+            .pipe(sourcemaps.write(mapsDir))
+            .pipe(gulp.dest(destination))
+            .pipe(notify({
+                title: "JS Compiled",
+                message: "All JS files in the theme have been compiled.",
+                onLast: true
+            }));
+    });
 };
