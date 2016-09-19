@@ -11,9 +11,9 @@ var appRootDir = require('app-root-dir').get();
  * This task generates CSS from all SCSS files and compresses them down.
  */
 module.exports = function (gulp, config) {
-    var sources = config.sass.sources || appRootDir + '/src/scss/**/*.scss';
-    var destination = config.sass.destination || appRootDir + '/css';
-    var mapsDir = config.sass.mapsDir || appRootDir + '/maps';
+    var sources = config.sources.scss || appRootDir + '/src/scss/**/*.scss';
+    var destination = config.paths.css || appRootDir + '/css';
+    var mapsDir = config.paths.maps || appRootDir + '/maps';
     var loadPath = config.sass.loadPath || appRootDir + '/css/*';
 
     gulp.task('sass', function () {

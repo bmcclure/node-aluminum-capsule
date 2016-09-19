@@ -10,9 +10,9 @@ var appRootDir = require('app-root-dir').get();
  * This task minifies javascript in the js/js-src folder and places them in the js directory.
  */
 module.exports = function (gulp, config) {
-    var sources = config.scripts.sources || appRootDir + '/src/js/*.js';
-    var mapsDir = config.scripts.mapsDir || appRootDir + '/maps';
-    var destination = config.scripts.destination || appRootDir + '/js';
+    var sources = config.sources.js || appRootDir + '/src/js/*.js';
+    var mapsDir = config.sources.maps || appRootDir + '/maps';
+    var destination = config.paths.js || appRootDir + '/js';
 
     gulp.task('scripts', function () {
         if (!config.scripts.enabled) {

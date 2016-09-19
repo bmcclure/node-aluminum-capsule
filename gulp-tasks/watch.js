@@ -4,6 +4,7 @@
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var notify = require('gulp-notify');
+var appRootDir = require('app-root-dir');
 
 function watchTask(files, task, conditionalTasks) {
     if (config[task].enabled && config[task].watch) {
@@ -23,15 +24,25 @@ function watchTask(files, task, conditionalTasks) {
  * Defines the watcher task.
 */
 module.exports = function (gulp, config) {
-    var sassFiles = config.sass.watchFiles || ['src/scss/**/*.scss'];
-    var jsFiles = config.scripts.watchFiles || ['js-src/**/*.js'];
-    var twigFiles = config.twig.watchFiles || ['templates/**/*.html.twig'];
+    var imageFiles = config.sources.images || [appRootDir + '/images/**/*.+(jpeg|jpg|png|gif|svg)'];
+    var sassFiles = config.sources.scss || [appRootDir + '/src/scss/**/*.scss'];
+    var jsFiles = config.sources.js || [appRootDir + '/src/js/**/*.js'];
+    var twigFiles = config.sources.twig || [appRootDir + '/templates/**/*.html.twig'];
 
-    gulp.task('watch', function () {
-        // watch scss for changes and clear drupal theme cache on change
+    var deps = [];
+
+    if (config.sassImages.enabled) {
+        deps.push('sass-images');
+    }
+
+    gulp.task('watch', deps, function () {
+        // Watch for image changes and regenerate image helper
+        watchTask(imageFiles, "sass-images");
+
+        // Watch scss for changes and clear Drupal theme cache on change
         watchTask(sassFiles, "sass", { "drush": ["drush:cc"] });
 
-        // watch js for changes and clear drupal theme cache on change
+        // Watch js for changes and clear Drupal theme cache on change
         watchTask(jsFiles, "scripts", { "drush": ["drush:cc"] });
 
         // If user has specified an override, rebuild Drupal cache

@@ -14,11 +14,12 @@ module.exports = {
     },
     gulpTasks: function (tasks) {
         tasks = tasks || [
+                'drush',
                 'icons',
+                'sass-images',
                 'sass',
                 'scripts',
                 'modernizr',
-                'drush',
                 'browser-sync',
                 'watch'
             ];
