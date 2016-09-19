@@ -4,6 +4,7 @@
 var modernizr = require('gulp-modernizr');
 var appRootDir = require('app-root-dir').get();
 var notify = require('gulp-notify');
+var uglify = require('gulp-uglify');
 
 module.exports = function (gulp, config) {
     gulp.task('modernizr', function () {
