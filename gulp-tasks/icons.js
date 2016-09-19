@@ -4,10 +4,14 @@
 var appRootDir = require('app-root-dir').get();
 var svgSprite = require('gulp-svg-sprites');
 var replace = require('gulp-replace');
-var merge = require('gulp-merge');
+var del = require('del');
 
 module.exports = function (gulp, config) {
     gulp.task('icons', function () {
+        if (!config.icons.enabled) {
+            return;
+        }
+
         var iconFiles = config.sources.icons || [appRootDir + '/src/icons/*.svg'];
         var iconDestination = config.icons.destination || appRootDir + "/";
         var cssFile = config.icons.cssFile || "src/scss/generated/_icons.scss";
@@ -16,13 +20,13 @@ module.exports = function (gulp, config) {
         var mode = config.icons.mode || "sprite";
         var iconPath = config.paths.icons || "images/icons.svg";
 
-        var icons = gulp.src(iconFiles)
+        return gulp.src(iconFiles)
             .pipe(svgSprite({
                 "mode": mode,
                 "selector": iconSelector,
                 "cssFile": cssFile,
-                "svgPath": "../images/%f",
-                "pngPath": "../images/%f",
+                "svgPath": "../%f",
+                "templates": { "scss": true },
                 "svg": {
                     "sprite": iconPath
                 },
@@ -33,15 +37,24 @@ module.exports = function (gulp, config) {
             }))
             .pipe(gulp.dest(iconDestination));
 
-        if (config.sassImages.enabled) {
-            var replaced = gulp.src(cssFile)
-                .pipe(replace(/url\("..\/images\/([^)]+)"\)/g, 'image-url("$1")'))
-                .pipe(gulp.dest(cssFile));
+    });
 
-            return merge(icons, replaced);
-        } else {
-            return icons;
+    gulp.task('icons:del-css', ['icons'], function () {
+        var delFile = config.icons.delFile || "src/scss/generated/_icons.css";
+
+        return del(delFile);
+    });
+
+    gulp.task('icons:sass-images', ['icons:del-css'], function () {
+        var dir = "src/scss/generated";
+        var cssFile = config.icons.cssFile || "src/scss/generated/_icons.scss";
+
+        if (!config.icons.enabled || !config.sassImages.enabled) {
+            return;
         }
 
+        return gulp.src(cssFile)
+            .pipe(replace(/url\("..\/images\/([^)]+)"\)/g, 'image-url("$1")'))
+            .pipe(gulp.dest(dir));
     });
 };
