@@ -5,6 +5,7 @@ var appRootDir = require('app-root-dir').get();
 var svgSprite = require('gulp-svg-sprites');
 var replace = require('gulp-replace');
 var del = require('del');
+var notify = require('gulp-notify');
 
 module.exports = function (gulp, config) {
     gulp.task('icons', ['icons:sass-images']);
