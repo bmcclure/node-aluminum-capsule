@@ -4,6 +4,7 @@
 var appRootDir = require('app-root-dir').get();
 var svgSprite = require('gulp-svg-sprites');
 var replace = require('gulp-replace');
+var merge = require('gulp-merge');
 
 module.exports = function (gulp, config) {
     gulp.task('icons', function () {
