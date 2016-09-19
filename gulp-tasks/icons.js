@@ -9,7 +9,7 @@ var del = require('del');
 module.exports = function (gulp, config) {
     gulp.task('icons', ['icons:sass-images']);
 
-    gulp.task('icons:sprite', function () {
+    gulp.task('icons:sprites', function () {
         if (!config.icons.enabled) {
             return;
         }
@@ -38,7 +38,12 @@ module.exports = function (gulp, config) {
                 },
                 "baseSize": baseSize
             }))
-            .pipe(gulp.dest(iconDestination));
+            .pipe(gulp.dest(iconDestination))
+            .pipe(notify({
+                title: "Icon Sprites Generated",
+                message: "All SVG icon sprites have been created.",
+                onLast: true
+            }));
 
     });
 

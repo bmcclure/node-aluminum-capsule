@@ -22,6 +22,11 @@ module.exports = function (gulp, config) {
                 images_path: imagesPath,
                 includeData: false
             }))
-            .pipe(gulp.dest(destination));
+            .pipe(gulp.dest(destination))
+            .pipe(notify({
+                title: "SASS Images Processed",
+                message: "Theme images have been mapped in the generated SASS mixin.",
+                onLast: true
+            }));
     });
 };

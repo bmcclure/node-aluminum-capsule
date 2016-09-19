@@ -23,6 +23,11 @@ module.exports = function (gulp, config) {
 
         gulp.src(sources)
             .pipe(modernizr(options))
-            .pipe(gulp.dest(destination));
+            .pipe(gulp.dest(destination))
+            .pipe(notify({
+                title: "Modernizr Generated",
+                message: "A custom Modernizr file has been generated.",
+                onLast: true
+            }));
     });
 };

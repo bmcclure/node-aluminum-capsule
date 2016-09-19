@@ -11,7 +11,7 @@ var appRootDir = require('app-root-dir').get();
  */
 module.exports = function (gulp, config) {
     var sources = config.sources.js || appRootDir + '/src/js/*.js';
-    var mapsDir = config.sources.maps || appRootDir + '/maps';
+    var mapsDir = config.sources.jsMaps || appRootDir + '/js/maps';
     var destination = config.paths.js || appRootDir + '/js';
 
     gulp.task('scripts', function () {

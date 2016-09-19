@@ -13,7 +13,7 @@ var appRootDir = require('app-root-dir').get();
 module.exports = function (gulp, config) {
     var sources = config.sources.scss || appRootDir + '/src/scss/**/*.scss';
     var destination = config.paths.css || appRootDir + '/css';
-    var mapsDir = config.paths.maps || appRootDir + '/maps';
+    var mapsDir = config.paths.cssMaps || appRootDir + '/css/maps';
     var loadPath = config.sass.loadPath || appRootDir + '/css/*';
 
     gulp.task('sass', function () {
