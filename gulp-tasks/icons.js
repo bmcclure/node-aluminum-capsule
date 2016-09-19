@@ -7,7 +7,9 @@ var replace = require('gulp-replace');
 var del = require('del');
 
 module.exports = function (gulp, config) {
-    gulp.task('icons', function () {
+    gulp.task('icons', ['icons:sass-images']);
+
+    gulp.task('icons:sprite', function () {
         if (!config.icons.enabled) {
             return;
         }
@@ -39,7 +41,7 @@ module.exports = function (gulp, config) {
 
     });
 
-    gulp.task('icons:del-css', ['icons'], function () {
+    gulp.task('icons:del-css', ['icons:sprite'], function () {
         var delFile = config.icons.delFile || "src/scss/generated/_icons.css";
 
         return del(delFile);
