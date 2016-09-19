@@ -24,6 +24,7 @@ module.exports = function (gulp, config) {
 
         gulp.src(sources)
             .pipe(modernizr(options))
+            .pipe(uglify())
             .pipe(gulp.dest(destination))
             .pipe(notify({
                 title: "Modernizr Generated",
