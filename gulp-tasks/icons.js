@@ -3,6 +3,7 @@
  */
 var appRootDir = require('app-root-dir').get();
 var svgSprite = require('gulp-svg-sprites');
+var replace = require('gulp-replace');
 
 module.exports = function (gulp, config) {
     gulp.task('icons', function () {
@@ -14,21 +15,32 @@ module.exports = function (gulp, config) {
         var mode = config.icons.mode || "sprite";
         var iconPath = config.paths.icons || "images/icons.svg";
 
-        return gulp.src(iconFiles)
+        var icons = gulp.src(iconFiles)
             .pipe(svgSprite({
                 "mode": mode,
                 "selector": iconSelector,
                 "cssFile": cssFile,
-                "svgPath": "../../images/%f",
-                "pngPath": "../../images/%f",
+                "svgPath": "../images/%f",
+                "pngPath": "../images/%f",
                 "svg": {
-                    mode: iconPath
+                    "sprite": iconPath
                 },
                 "preview": {
-                    mode: "icons.html"
+                    "sprite": "icons.html"
                 },
                 "baseSize": baseSize
             }))
             .pipe(gulp.dest(iconDestination));
+
+        if (config.sassImages.enabled) {
+            var replaced = gulp.src(cssFile)
+                .pipe(replace(/url\("..\/images\/([^)]+)"\)/g, 'image-url("$1")'))
+                .pipe(gulp.dest(cssFile));
+
+            return merge(icons, replaced);
+        } else {
+            return icons;
+        }
+
     });
 };
