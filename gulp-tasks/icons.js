@@ -7,24 +7,24 @@ var svgSprite = require('gulp-svg-sprites');
 module.exports = function (gulp, config) {
     gulp.task('icons', function () {
         var iconFiles = config.icons.iconFiles || [appRootDir + '/src/icons/*.svg'];
-        var iconDestination = config.icons.destination || "images";
-        var cssFile = config.icons.cssFile || "src/scss/_icons.scss";
+        var iconDestination = config.icons.destination || appRootDir + "/images";
+        var cssFile = config.icons.cssFile || appRootDir + "/src/scss/components/_icons.scss";
         var iconSelector = config.icons.selector || "icon-%f";
         var baseSize = config.icons.baseSize || 10;
+        var mode = config.icons.mode || "sprite";
 
         return gulp.src(iconFiles)
             .pipe(svgSprite({
-                "mode": "symbols",
+                "mode": mode,
                 "selector": iconSelector,
-                "svgId": "svg-%f",
                 "cssFile": cssFile,
                 "svgPath": "../images/%f",
                 "pngPath": "../images/%f",
                 "svg": {
-                    "symbols": "icons.svg"
+                    mode: "icons.svg"
                 },
                 "preview": {
-                    "symbols": "icons.html"
+                    mode: "icons.html"
                 },
                 "baseSize": baseSize
             }))
