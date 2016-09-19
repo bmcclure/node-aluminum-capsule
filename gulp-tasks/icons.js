@@ -21,6 +21,7 @@ module.exports = function (gulp, config) {
         var baseSize = config.icons.baseSize || 10;
         var mode = config.icons.mode || "sprite";
         var iconPath = config.paths.icons || "images/icons.svg";
+        var htmlPath = config.icons.htmlPath || "docs/icons.html";
 
         return gulp.src(iconFiles)
             .pipe(svgSprite({
@@ -33,7 +34,7 @@ module.exports = function (gulp, config) {
                     "sprite": iconPath
                 },
                 "preview": {
-                    "sprite": "icons.html"
+                    "sprite": htmlPath
                 },
                 "baseSize": baseSize
             }))
