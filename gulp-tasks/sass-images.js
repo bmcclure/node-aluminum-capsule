@@ -2,6 +2,7 @@
  * Created by BMcClure on 9/18/2016.
  */
 var sassImage = require('gulp-sass-image');
+var appRootDir = require('app-root-dir');
 
 module.exports = function (gulp, config) {
     gulp.task('sass-images', function () {
