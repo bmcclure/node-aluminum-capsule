@@ -28,6 +28,8 @@ module.exports = function (gulp, config) {
     var sassFiles = config.sources.scss || [appRootDir + '/src/scss/**/*.scss'];
     var jsFiles = config.sources.js || [appRootDir + '/src/js/**/*.js'];
     var twigFiles = config.sources.twig || [appRootDir + '/templates/**/*.html.twig'];
+    var fontFiles = config.sources.fonts || appRootDir + '/src/fonts/*.{ttf,otf}';
+    var iconFiles = config.sources.icons || [appRootDir + '/src/icons/*.svg'];
 
     var deps = [];
 
@@ -36,8 +38,12 @@ module.exports = function (gulp, config) {
     }
 
     gulp.task('watch', deps, function () {
+        watchTask(iconFiles, "icons");
+
         // Watch for image changes and regenerate image helper
         watchTask(imageFiles, "sass-images");
+
+        watchTask(fontFiles, "fonts");
 
         // Watch scss for changes and clear Drupal theme cache on change
         watchTask(sassFiles, "sass", { "drush": ["drush:cc"] });

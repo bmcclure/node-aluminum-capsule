@@ -5,16 +5,29 @@ var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var util = require('gulp-util');
 var notify = require('gulp-notify');
-var appRootDir = require('app-root-dir').get();
+var eyeglass = require('eyeglass');
 
 /**
  * This task generates CSS from all SCSS files and compresses them down.
  */
 module.exports = function (gulp, config) {
-    var sources = config.sources.scss || appRootDir + '/src/scss/**/*.scss';
-    var destination = config.paths.css || appRootDir + '/css';
-    var mapsDir = config.paths.cssMaps || appRootDir + '/css/maps';
-    var loadPath = config.sass.loadPath || appRootDir + '/css/*';
+    var sources = config.sources.scss || './src/scss/**/*.scss';
+    var destination = config.paths.css || './css';
+    var mapsDir = config.paths.cssMaps || './maps';
+    var loadPath = config.sass.loadPath || './css/*';
+    var includePaths = config.sass.includePaths || [];
+    includePaths.push('./css');
+
+    var sassOptions = {
+        includePaths: includePaths,
+        noCache: true,
+        outputStyle: "compressed",
+        lineNumbers: false,
+        loadPath: loadPath,
+        eyeglass: {
+
+        }
+    };
 
     gulp.task('sass', function () {
         if (!config.sass.enabled) {
@@ -23,13 +36,7 @@ module.exports = function (gulp, config) {
 
         return gulp.src(sources)
             .pipe(sourcemaps.init())
-            .pipe(sass({
-                noCache: true,
-                outputStyle: "compressed",
-                lineNumbers: false,
-                loadPath: loadPath,
-                sourceMap: true
-            })).on('error', function (error) {
+            .pipe(sass(eyeglass(sassOptions))).on('error', function (error) {
                 util.log(error);
                 this.emit('end');
             })

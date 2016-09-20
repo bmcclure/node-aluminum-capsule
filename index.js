@@ -1,33 +1,49 @@
 /**
  * @author bmcclure
  */
-var config = {};
-var gulp = require('gulp');
+var fs = require('fs');
+
+var params = {
+    config: (fs.existsSync(__dirname + "/./config.json")) ? require("./config.json") : {},
+    gulp: require('gulp')
+};
+
+function gulpTask(name, gulp, config) {
+    gulp = gulp || params.gulp;
+    config = config || params.config;
+
+    require('./gulp-tasks/' + name)(gulp, config);
+}
 
 module.exports = {
-    setConfig: function (setGulp, setConfig) {
-        gulp = setGulp;
-        config = setConfig;
+    setConfig: function (gulp, config) {
+        params.gulp = gulp;
+        params.config = config;
     },
-    gulpTask: function (name) {
-        require('./gulp-tasks/' + task)(gulp, config);
+    gulpTask: function (name, gulp, config) {
+        gulpTask(name, gulp, config);
     },
-    gulpTasks: function (tasks) {
-        tasks = tasks || [
+    gulpTasks: function (gulp, config) {
+        tasks = config.gulp.tasks || [
                 'drush',
+                "font-awesome",
+                "fonts",
                 'icons',
                 'sass-images',
                 'sass',
                 'scripts',
                 'modernizr',
                 'browser-sync',
-                'watch'
+                'watch',
+                'default'
             ];
 
-        tasks.forEach(function (task) {
-            require('./gulp-tasks/' + task)(gulp, config);
-        });
+        var excludeTasks = config.gulp.excludeTasks || [];
 
-        gulp.task('default', ['watch']);
+        tasks.forEach(function (task) {
+            if (!excludeTasks.contains(task)) {
+                gulpTask(task, gulp, config)
+            }
+        });
     }
 };

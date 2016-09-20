@@ -3,7 +3,7 @@
 <pre>
 The MIT License (MIT)
 
-Copyright (c) 2015 Morris Brodersen &lt;mb@morrisbrodersen.de&gt;
+Copyright (c) 2016 Ben McClure &lt;ben.mcclure@gmail.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
