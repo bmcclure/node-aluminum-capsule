@@ -4,7 +4,6 @@
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var notify = require('gulp-notify');
-var appRootDir = require('app-root-dir');
 
 function watchTask(gulp, config, files, task, conditionalTasks) {
     var propName = task.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
@@ -30,11 +29,11 @@ function watchTask(gulp, config, files, task, conditionalTasks) {
  * Defines the watcher task.
 */
 module.exports = function (gulp, config) {
-    var sassFiles = config.sources.scss || [appRootDir + '/src/scss/**/*.scss'];
-    var jsFiles = config.sources.js || [appRootDir + '/src/js/**/*.js'];
-    var twigFiles = config.sources.twig || [appRootDir + '/templates/**/*.html.twig'];
-    var fontFiles = config.sources.fonts || appRootDir + '/src/fonts/*.{ttf,otf}';
-    var iconFiles = config.sources.icons || [appRootDir + '/src/icons/*.svg'];
+    var sassFiles = config.sources.scss || ['./src/scss/**/*.scss'];
+    var jsFiles = config.sources.js || ['./src/js/**/*.js'];
+    var twigFiles = config.sources.twig || ['./templates/**/*.html.twig'];
+    var fontFiles = config.sources.fonts || './src/fonts/*.{ttf,otf}';
+    var iconFiles = config.sources.icons || ['./src/icons/*.svg'];
 
     gulp.task('watch', function () {
         watchTask(gulp, config, iconFiles, "icons");
