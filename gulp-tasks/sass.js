@@ -6,6 +6,7 @@ var sass = require('gulp-sass');
 var util = require('gulp-util');
 var notify = require('gulp-notify');
 var eyeglass = require('eyeglass');
+var path = require('path');
 
 /**
  * This task generates CSS from all SCSS files and compresses them down.
@@ -18,14 +19,23 @@ module.exports = function (gulp, config) {
     var includePaths = config.sass.includePaths || [];
     includePaths.push('./css');
 
+    var rootDir = path.resolve('.');
+
     var sassOptions = {
         includePaths: includePaths,
-        noCache: true,
         outputStyle: "compressed",
         lineNumbers: false,
         loadPath: loadPath,
         eyeglass: {
-
+            root: rootDir,
+            assets: {
+                sources: [
+                    {
+                        directory: rootDir,
+                        pattern: "{css,fonts,images}/**/*"
+                    }
+                ]
+            }
         }
     };
 

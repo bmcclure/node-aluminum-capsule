@@ -4,7 +4,7 @@
 var fs = require('fs');
 
 var params = {
-    config: (fs.existsSync(__dirname + "/./config.json")) ? require("./config.json") : {},
+    config: (fs.existsSync("./config.json")) ? require("../../config.json") : {},
     gulp: require('gulp')
 };
 
@@ -24,12 +24,14 @@ module.exports = {
         gulpTask(name, gulp, config);
     },
     gulpTasks: function (gulp, config) {
+        gulp = gulp || params.gulp;
+        config = config || params.config;
+
         tasks = config.gulp.tasks || [
                 'drush',
                 "font-awesome",
                 "fonts",
                 'icons',
-                'sass-images',
                 'sass',
                 'scripts',
                 'modernizr',
@@ -41,7 +43,7 @@ module.exports = {
         var excludeTasks = config.gulp.excludeTasks || [];
 
         tasks.forEach(function (task) {
-            if (!excludeTasks.contains(task)) {
+            if (excludeTasks.indexOf(task) == -1) {
                 gulpTask(task, gulp, config)
             }
         });

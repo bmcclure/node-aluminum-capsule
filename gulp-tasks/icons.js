@@ -18,14 +18,23 @@ module.exports = function (gulp, config) {
         var iconDestination = config.icons.destination || "./";
 
         var spriteConfig = {
-            "mode": {}
+            "mode": {},
+            "shape": {
+                "dimensions": {
+                    maxWidth: 640,
+                    maxHeight: 640
+                }
+            }
         };
 
-        spriteConfig.mode[config.icons.mode || "symbol"] = {
+        spriteConfig.mode[config.icons.mode || "view"] = {
             "dest": iconDestination,
             "sprite": config.paths.icons || "images/icons.svg",
-            "prefix": config.icons.prefix || "icon--%s",
-            "inline": true,
+            "prefix": config.icons.prefix || ".icon--%s",
+            "mixin": config.icons.mixin || "icon-base",
+            "inline": false,
+            "bust": false,
+            "common": config.icons.commonClass || "icon",
             "render": {
                 "scss": {
                     "dest": config.icons.cssFile || "./src/scss/generated/_icons.scss"
@@ -47,7 +56,7 @@ module.exports = function (gulp, config) {
 
     });
 
-    gulp.task('icons:del-css', ['icons:sprite'], function () {
+    gulp.task('icons:del-css', ['icons:sprites'], function () {
         var delFile = config.icons.delFile || "src/scss/generated/_icons.css";
 
         return del(delFile);
@@ -62,7 +71,7 @@ module.exports = function (gulp, config) {
         }
 
         return gulp.src(cssFile)
-            .pipe(replace(/url\("..\/images\/([^)]+)"\)/g, 'image-url("$1")'))
+            .pipe(replace(/url\("images\/([^)]+)"\)/g, 'asset-url("$1")'))
             .pipe(gulp.dest(dir));
     });
 };

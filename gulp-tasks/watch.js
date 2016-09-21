@@ -6,15 +6,21 @@ var uglify = require('gulp-uglify');
 var notify = require('gulp-notify');
 var appRootDir = require('app-root-dir');
 
-function watchTask(files, task, conditionalTasks) {
-    if (config[task].enabled && config[task].watch) {
+function watchTask(gulp, config, files, task, conditionalTasks) {
+    var propName = task.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+
+    if (config[propName].enabled && config[propName].watch) {
         var tasks = [task];
 
-        conditionalTasks.forEach(function (cndTasks, conditional) {
-            if (config[conditional].enabled) {
-                tasks.push(cndTasks);
+        conditionalTasks = conditionalTasks || {};
+
+        for (var conditional in conditionalTasks) {
+            if (conditionalTasks.hasOwnProperty(conditional)) {
+                if (config[conditional].enabled) {
+                    tasks.push(conditionalTasks[conditional]);
+                }
             }
-        });
+        }
 
         gulp.watch(files, tasks);
     }
@@ -38,18 +44,15 @@ module.exports = function (gulp, config) {
     }
 
     gulp.task('watch', deps, function () {
-        watchTask(iconFiles, "icons");
+        watchTask(gulp, config, iconFiles, "icons");
 
-        // Watch for image changes and regenerate image helper
-        watchTask(imageFiles, "sass-images");
-
-        watchTask(fontFiles, "fonts");
+        watchTask(gulp, config, fontFiles, "fonts");
 
         // Watch scss for changes and clear Drupal theme cache on change
-        watchTask(sassFiles, "sass", { "drush": ["drush:cc"] });
+        watchTask(gulp, config, sassFiles, "sass", { "drush": ["drush:cc"] });
 
         // Watch js for changes and clear Drupal theme cache on change
-        watchTask(jsFiles, "scripts", { "drush": ["drush:cc"] });
+        watchTask(gulp, config, jsFiles, "scripts", { "drush": ["drush:cc"] });
 
         // If user has specified an override, rebuild Drupal cache
         if (config.twig.enabled && !config.twig.useCache && config.drush.enabled) {

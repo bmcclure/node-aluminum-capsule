@@ -49,10 +49,6 @@
         "enabled": true,
         "watch": true
     },
-    "sassImages": {
-        "enabled": true,
-        "watch": true
-    },
     "scripts": {
         "enabled": true,
         "watch": true
