@@ -1,7 +1,6 @@
 /**
  * Created by BMcClure on 9/19/2016.
  */
-var fontgen = require('gulp-fontgen');
 var rename = require('gulp-rename');
 
 module.exports = function (gulp, config) {
