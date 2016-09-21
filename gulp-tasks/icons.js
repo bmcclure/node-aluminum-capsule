@@ -1,8 +1,7 @@
 /**
  * Created by BMcClure on 9/17/2016.
  */
-var appRootDir = require('app-root-dir').get();
-var svgSprite = require('gulp-svg-sprites');
+var svgSprite = require('gulp-svg-sprite');
 var replace = require('gulp-replace');
 var del = require('del');
 var notify = require('gulp-notify');
@@ -15,30 +14,30 @@ module.exports = function (gulp, config) {
             return;
         }
 
-        var iconFiles = config.sources.icons || [appRootDir + '/src/icons/*.svg'];
-        var iconDestination = config.icons.destination || appRootDir + "/";
-        var cssFile = config.icons.cssFile || "src/scss/generated/_icons.scss";
-        var iconSelector = config.icons.selector || "icon-%f";
-        var baseSize = config.icons.baseSize || 10;
-        var mode = config.icons.mode || "sprite";
-        var iconPath = config.paths.icons || "images/icons.svg";
-        var htmlPath = config.icons.htmlPath || "docs/icons.html";
+        var iconFiles = config.sources.icons || ['./src/icons/*.svg'];
+        var iconDestination = config.icons.destination || "./";
+
+        var spriteConfig = {
+            "mode": {}
+        };
+
+        spriteConfig.mode[config.icons.mode || "symbol"] = {
+            "dest": iconDestination,
+            "sprite": config.paths.icons || "images/icons.svg",
+            "prefix": config.icons.prefix || "icon--%s",
+            "inline": true,
+            "render": {
+                "scss": {
+                    "dest": config.icons.cssFile || "./src/scss/generated/_icons.scss"
+                }
+            },
+            "example": {
+                "dest": config.icons.htmlPath || "docs/icons.html"
+            }
+        };
 
         return gulp.src(iconFiles)
-            .pipe(svgSprite({
-                "mode": mode,
-                "selector": iconSelector,
-                "cssFile": cssFile,
-                "svgPath": "../%f",
-                "templates": { "scss": true },
-                "svg": {
-                    "sprite": iconPath
-                },
-                "preview": {
-                    "sprite": htmlPath
-                },
-                "baseSize": baseSize
-            }))
+            .pipe(svgSprite(spriteConfig))
             .pipe(gulp.dest(iconDestination))
             .pipe(notify({
                 title: "Icon Sprites Generated",
