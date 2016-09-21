@@ -7,7 +7,7 @@ var del = require('del');
 var notify = require('gulp-notify');
 
 module.exports = function (gulp, config) {
-    gulp.task('icons', ['icons:sass-images']);
+    gulp.task('icons', ['icons:asset-urls']);
 
     gulp.task('icons:sprites', function () {
         if (!config.icons.enabled) {
@@ -56,13 +56,7 @@ module.exports = function (gulp, config) {
 
     });
 
-    gulp.task('icons:del-css', ['icons:sprites'], function () {
-        var delFile = config.icons.delFile || "src/scss/generated/_icons.css";
-
-        return del(delFile);
-    });
-
-    gulp.task('icons:sass-images', ['icons:del-css'], function () {
+    gulp.task('icons:asset-urls', function () {
         var dir = "src/scss/generated";
         var cssFile = config.icons.cssFile || "src/scss/generated/_icons.scss";
 
