@@ -30,20 +30,13 @@ function watchTask(gulp, config, files, task, conditionalTasks) {
  * Defines the watcher task.
 */
 module.exports = function (gulp, config) {
-    var imageFiles = config.sources.images || [appRootDir + '/images/**/*.+(jpeg|jpg|png|gif|svg)'];
     var sassFiles = config.sources.scss || [appRootDir + '/src/scss/**/*.scss'];
     var jsFiles = config.sources.js || [appRootDir + '/src/js/**/*.js'];
     var twigFiles = config.sources.twig || [appRootDir + '/templates/**/*.html.twig'];
     var fontFiles = config.sources.fonts || appRootDir + '/src/fonts/*.{ttf,otf}';
     var iconFiles = config.sources.icons || [appRootDir + '/src/icons/*.svg'];
 
-    var deps = [];
-
-    if (config.sassImages.enabled) {
-        deps.push('sass-images');
-    }
-
-    gulp.task('watch', deps, function () {
+    gulp.task('watch', function () {
         watchTask(gulp, config, iconFiles, "icons");
 
         watchTask(gulp, config, fontFiles, "fonts");
