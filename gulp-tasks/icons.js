@@ -56,7 +56,7 @@ module.exports = function (gulp, config) {
 
     });
 
-    gulp.task('icons:asset-urls', function () {
+    gulp.task('icons:asset-urls', ['icons:sprites'], function () {
         var dir = "src/scss/generated";
         var cssFile = config.icons.cssFile || "src/scss/generated/_icons.scss";
 
@@ -65,7 +65,7 @@ module.exports = function (gulp, config) {
         }
 
         return gulp.src(cssFile)
-            .pipe(replace(/url\("images\/([^)]+)"\)/g, 'asset-url("$1")'))
+            .pipe(replace(/url\(("images\/[^"]+")\)/g, 'asset-url($1)'))
             .pipe(gulp.dest(dir));
     });
 };
