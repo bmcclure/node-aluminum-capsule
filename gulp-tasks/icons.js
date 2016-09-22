@@ -20,9 +20,9 @@ module.exports = function (gulp, config) {
         var spriteConfig = {
             "mode": {},
             "shape": {
-                "dimensions": {
-                    maxWidth: 640,
-                    maxHeight: 640
+                "dimension": {
+                    maxWidth: 32,
+                    maxHeight: 32
                 }
             }
         };
@@ -35,6 +35,7 @@ module.exports = function (gulp, config) {
             "inline": false,
             "bust": false,
             "common": config.icons.commonClass || "icon",
+            "dimensions": true,
             "render": {
                 "scss": {
                     "dest": config.icons.cssFile || "./src/scss/generated/_icons.scss"
