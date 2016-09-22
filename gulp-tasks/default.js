@@ -1,7 +1,6 @@
 /**
  * Created by BMcClure on 9/17/2016.
  */
-var notify = require('gulp-notify');
 
 /**
  * Define a task to spawn Browser Sync.

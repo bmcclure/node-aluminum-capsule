@@ -8,21 +8,10 @@ var fs = require('fs');
 var path = require('path');
 
 function generateModernizr(gulp, config) {
-    var options = config.modernizr.options || {};
-
-    var sources = config.modernizr.sources || [
-            './src/js/**/*.js',
-            './src/scss/**/*.scss',
-            './js/**/*.js',
-            '!./js/modernizr.js'
-        ];
-
-    var destination = config.modernizr.dest || './js';
-
-    gulp.src(sources)
-        .pipe(modernizr(options))
+    gulp.src(config.modernizr.sources)
+        .pipe(modernizr(config.modernizr.options))
         .pipe(uglify())
-        .pipe(gulp.dest(destination))
+        .pipe(gulp.dest(config.paths.js))
         .pipe(notify({
             title: "Modernizr Generated",
             message: "A custom Modernizr file has been generated.",
@@ -36,12 +25,8 @@ module.exports = function (gulp, config) {
             return;
         }
 
-        var destination = config.modernizr.dest || './js';
-
-        fs.stat(path.join(destination, './modernizr.js'), function(err, stat) {
-            if(err == null) {
-                // Modernizr already exists, skip automatic generation
-            } else {
+        fs.stat(path.join(config.paths.js, './modernizr.js'), function(err, stat) {
+            if(err) {
                 generateModernizr(gulp, config);
             }
         });

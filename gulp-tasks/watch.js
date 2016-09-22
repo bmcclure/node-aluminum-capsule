@@ -7,11 +7,10 @@ var notify = require('gulp-notify');
 
 function watchTask(gulp, config, files, task, conditionalTasks) {
     var propName = task.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+    conditionalTasks = conditionalTasks || {};
 
     if (config[propName].enabled && config[propName].watch) {
         var tasks = [task];
-
-        conditionalTasks = conditionalTasks || {};
 
         for (var conditional in conditionalTasks) {
             if (conditionalTasks.hasOwnProperty(conditional)) {
@@ -29,26 +28,15 @@ function watchTask(gulp, config, files, task, conditionalTasks) {
  * Defines the watcher task.
 */
 module.exports = function (gulp, config) {
-    var sassFiles = config.sources.scss || ['./src/scss/**/*.scss'];
-    var jsFiles = config.sources.js || ['./src/js/**/*.js'];
-    var twigFiles = config.sources.twig || ['./templates/**/*.html.twig'];
-    var fontFiles = config.sources.fonts || './src/fonts/*.{ttf,otf}';
-    var iconFiles = config.sources.icons || ['./src/icons/*.svg'];
-
     gulp.task('watch', function () {
-        watchTask(gulp, config, iconFiles, "icons");
-
-        watchTask(gulp, config, fontFiles, "fonts");
-
-        // Watch scss for changes and clear Drupal theme cache on change
-        watchTask(gulp, config, sassFiles, "sass", { "drush": ["drush:cc"] });
-
-        // Watch js for changes and clear Drupal theme cache on change
-        watchTask(gulp, config, jsFiles, "scripts", { "drush": ["drush:cc"] });
+        watchTask(gulp, config, config.sources.icons, "icons");
+        watchTask(gulp, config, config.sources.fonts, "fonts");
+        watchTask(gulp, config, config.sources.scss, "sass", { "drush": ["drush:cc"] });
+        watchTask(gulp, config, config.sources.js, "scripts", { "drush": ["drush:cc"] });
 
         // If user has specified an override, rebuild Drupal cache
         if (config.twig.enabled && !config.twig.useCache && config.drush.enabled) {
-            gulp.watch(twigFiles, ['drush:cr']);
+            gulp.watch(config.sources.twig, ['drush:cr']);
         }
     });
 };

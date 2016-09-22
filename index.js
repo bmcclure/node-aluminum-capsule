@@ -4,7 +4,7 @@
 var fs = require('fs');
 
 var params = {
-    config: (fs.existsSync("./config.json")) ? require("../../config.json") : {},
+    config: require('./lib/config'),
     gulp: require('gulp')
 };
 

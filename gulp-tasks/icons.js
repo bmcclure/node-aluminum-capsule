@@ -7,7 +7,6 @@ var replace = require('gulp-replace');
 var del = require('del');
 var notify = require('gulp-notify');
 var size = require('gulp-size');
-var gutil = require('gulp-util');
 var path = require('path');
 
 module.exports = function (gulp, config) {
@@ -18,52 +17,52 @@ module.exports = function (gulp, config) {
             return;
         }
 
-        var iconFiles = config.sources.icons || ['./src/icons/*.svg'];
-        var iconDestination = config.icons.destination || "./";
-        var pngPath = config.paths.iconsPng || "images/icons.png";
-        var svgPath = config.paths.icons || "images/icons.svg";
+        var defaultScssTemplate = path.join(path.dirname(__dirname), 'templates/sprite-template.scss.mustache');
 
         var spriteConfig = {
             shape: {
                 dimension: {
-                    maxWidth: 32,
-                    maxHeight: 32
+                    maxWidth: config.icons.maxWidth,
+                    maxHeight: config.icons.maxHeight
                 },
                 spacing: {
-                    padding: 5
+                    padding: config.icons.padding
                 }
             },
             mode: {
                 css: {
-                    dest: iconDestination,
-                    layout: "diagonal",
-                    sprite: svgPath,
-                    //"prefix": config.icons.prefix || ".icon--%s",
-                    //"mixin": config.icons.mixin || "icon-base",
-                    bust: false,
-                    //"common": config.icons.commonClass || "icon",
-                    //"dimensions": true,
+                    dest: config.icons.destination,
+                    layout: config.icons.layout,
+                    sprite: config.paths.icons + '.svg',
+                    bust: config.icons.cacheBust,
                     render: {
                         scss: {
-                            dest: config.icons.cssFile || "src/scss/generated/_icons.scss",
-                            template: config.icons.scssTemplate || path.join(path.dirname(__dirname), 'templates/sprite-template.scss')
+                            dest: path.join(config.paths.generatedScss, config.icons.cssFile),
+                            template: config.icons.scssTemplate || defaultScssTemplate
                         }
                     }
-                    //"example": {
-                    //    "dest": config.icons.htmlPath || "docs/icons.html"
-                    //}
+                    /* Removed until I get further along
+                    ,
+                     "common": config.icons.commonClass || "icon",
+                     "dimensions": true,
+                     "prefix": config.icons.prefix || ".icon--%s",
+                     "mixin": config.icons.mixin || "icon-base",
+                     "example": {
+                         "dest": config.icons.htmlPath || "docs/icons.html"
+                      }
+                    */
                 }
             },
             variables: {
                 mapname: "icons",
-                pngPath: pngPath,
-                svgPath: svgPath
+                pngPath: config.paths.icons + '.png',
+                svgPath: config.paths.icons + '.svg'
             }
         };
 
-        return gulp.src(iconFiles)
+        return gulp.src(config.sources.icons)
             .pipe(svgSprite(spriteConfig))
-            .pipe(gulp.dest(iconDestination))
+            .pipe(gulp.dest(config.icons.destination))
             .pipe(notify({
                 title: "Icon Sprite Generated",
                 message: "The SVG icon sprite has been generated.",
@@ -73,14 +72,11 @@ module.exports = function (gulp, config) {
     });
 
     gulp.task('icons:png-sprite', ['icons:sprite'], function () {
-        var iconDestination = config.icons.destination || "./";
-        var icons = config.paths.icons || 'images/icons.svg';
-
-        return gulp.src(path.join(iconDestination, icons))
+        return gulp.src(path.join(config.icons.destination, config.paths.icons + '.svg'))
             .pipe(svg2png())
             .pipe(size({
                 showFiles: true
             }))
-            .pipe(gulp.dest(config.paths.images || './images'))
+            .pipe(gulp.dest(config.paths.images))
     });
 };

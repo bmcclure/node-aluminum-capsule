@@ -1,0 +1,106 @@
+{
+    "paths": {
+        "css": "css/",
+        "images": "images/",
+        "js": "js/",
+        "fonts": "fonts",
+        "maps": "maps/",
+        "icons": "images/icons",
+        "generatedScss": "src/scss/generated"
+    },
+    "sources": {
+        "scss": "src/scss/**/*.scss",
+        "images": "images/**/*.+(jpeg|jpg|png|gif|svg)",
+        "fonts": "src/fonts/*.{ttf,otf}",
+        "js": "src/js/**/*.js",
+        "icons": "src/icons/*.svg",
+        "twig": "templates/**/*.html.twig"
+    },
+    "gulp": {
+        "includeTasks": [
+            "drush",
+            "font-awesome",
+            "fonts",
+            "icons",
+            "sass",
+            "scripts",
+            "modernizr",
+            "browser-sync",
+            "watch",
+            "default"
+        ],
+        "excludeTasks": []
+    },
+    "browserSync": {
+        "enabled": false,
+        "hostname": "localhost",
+        "port": 80,
+        "openAutomatically": false,
+        "reloadDelay": 50,
+        "injectChanges": true
+    },
+    "drush": {
+        "enabled": false,
+        "watchDelay": 50,
+        "alias": {
+            "cc": "drush cc css-js",
+            "cr": "drush cr"
+        }
+    },
+    "icons": {
+        "enabled": false,
+        "watch": true,
+        "destination": "./",
+        "maxWidth": 32,
+        "maxHeight": 32,
+        "padding": 5,
+        "layout": "diagonal",
+        "cacheBust": false,
+        "scssTemplate": false
+    },
+    "fonts": {
+        "enabled": false,
+        "watch": true,
+        "cssFile": "_fonts.scss"
+    },
+    "fontAwesome": {
+        "enabled": false,
+        "src": "",
+        "cssFile": "_font-awesome.scss"
+    },
+    "kbox": {
+        "enabled": false
+    },
+    "modernizr": {
+        "enabled": false,
+        "options": {
+            "tests": [],
+            "excludeTests": []
+        },
+        "sources": [
+            "./src/js/**/*.js",
+            "./src/scss/**/*.scss",
+            "./js/**/*.js",
+            "!./js/modernizr.js"
+        ]
+    },
+    "sass": {
+        "enabled": false,
+        "watch": true,
+        "httpPrefix": "",
+        "assetsPattern": "{css,fonts,images}/**/*",
+        "browserSupport": "last 2 versions",
+        "includePaths": [
+            "./css"
+        ]
+    },
+    "scripts": {
+        "enabled": false,
+        "watch": true
+    },
+    "twig": {
+        "enabled": false,
+        "watch": true,
+        "useCache": true
+    }
+}
