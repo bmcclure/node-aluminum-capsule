@@ -1,3 +1,4 @@
+$icons: (sprite: (width: 0, height: 0)) !default;
 $mq-base-font-size: 16px !default;
 $ieSprite: '.lt-ie9' !default;
-$sprite: () !default;
+$sprite: map-get($icons, sprite) !default;
