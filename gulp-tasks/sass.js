@@ -20,8 +20,6 @@ module.exports = function (gulp, config) {
     var includePaths = config.sass.includePaths || [];
     includePaths.push('./css');
 
-    console.log(httpPrefix);
-
     var rootDir = path.resolve('.');
 
     var sassOptions = {
