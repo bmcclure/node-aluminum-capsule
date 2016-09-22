@@ -7,6 +7,7 @@ var util = require('gulp-util');
 var notify = require('gulp-notify');
 var eyeglass = require('eyeglass');
 var path = require('path');
+var sassGlob = require('gulp-sass-glob');
 
 /**
  * This task generates CSS from all SCSS files and compresses them down.
@@ -49,6 +50,7 @@ module.exports = function (gulp, config) {
 
         return gulp.src(sources)
             .pipe(sourcemaps.init())
+            .pipe(sassGlob())
             .pipe(sass(eyeglass(sassOptions))).on('error', function (error) {
                 util.log(error);
                 this.emit('end');
