@@ -8,6 +8,7 @@ var del = require('del');
 var notify = require('gulp-notify');
 var size = require('gulp-size');
 var gutil = require('gulp-util');
+var path = require('path');
 
 module.exports = function (gulp, config) {
     gulp.task('icons', ['icons:png-sprite']);
@@ -44,8 +45,8 @@ module.exports = function (gulp, config) {
                     //"dimensions": true,
                     render: {
                         scss: {
-                            dest: config.icons.cssFile || "./src/scss/generated/_icons.scss",
-                            template: config.icons.scssTemplate || path.join(__dirname, 'templates/sprite-template.scss')
+                            dest: config.icons.cssFile || "src/scss/generated/_icons.scss",
+                            template: config.icons.scssTemplate || path.join(path.dirname(__dirname), 'templates/sprite-template.scss')
                         }
                     }
                     //"example": {
