@@ -12,11 +12,15 @@
         "email": "ben.mcclure@gmail.com",
         "url": "http://www.topfloortech.com"
     },
+    "directories": {
+        "lib": "gulp-tasks"
+    },
     "files": [
         "index.js",
         "gulp-tasks",
         "lib",
-        "templates"
+        "templates",
+        "sass"
     ],
     "engines": {
         "node": ">=0.10.0"
