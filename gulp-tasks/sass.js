@@ -16,8 +16,11 @@ module.exports = function (gulp, config) {
     var destination = config.paths.css || './css';
     var mapsDir = config.paths.cssMaps || './maps';
     var loadPath = config.sass.loadPath || './css/*';
+    var httpPrefix = config.sass.httpPrefix || path.relative('../../', './');
     var includePaths = config.sass.includePaths || [];
     includePaths.push('./css');
+
+    console.log(httpPrefix);
 
     var rootDir = path.resolve('.');
 
@@ -28,7 +31,9 @@ module.exports = function (gulp, config) {
         loadPath: loadPath,
         eyeglass: {
             root: rootDir,
+            assetsHttpPrefix: "../",
             assets: {
+                httpPrefix: httpPrefix,
                 sources: [
                     {
                         directory: rootDir,
