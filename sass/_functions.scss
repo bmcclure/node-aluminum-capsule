@@ -1,0 +1,39 @@
+@function aluminum-px2em($px, $base-font-size: $mq-base-font-size) {
+    @if unitless($px) {
+        @warn "Assuming #{$px} to be in pixels, attempting to convert it into px.";
+        @return aluminum-px2em($px + 0px);
+    } @else if unit($px) == em {
+        @return $px;
+    }
+
+    @return ($px / $base-font-size) * 1em;
+}
+
+@function aluminum-sprite-attr($icon, $attr) {
+    $newIcon: map-get($icons, $icon);
+
+    @if $newIcon == null {
+        @warn "Can't find an icon with the name #{$icon}";
+    }
+
+    @return map-get($newIcon, $attr);
+}
+
+@function aluminum-icon-attr($icon) {
+    $attr: (
+        width: aluminum-sprite-attr($icon, width),
+        height: aluminum-sprite-attr($icon, height),
+        x: aluminum-sprite-attr($icon, backgroundX),
+        y: aluminum-sprite-attr($icon, backgroundY)
+    );
+
+    @return $attr;
+}
+
+@function aluminum-icon-width($icon) {
+    @return aluminum-px2em(aluminum-sprite-attr($icon, width));
+}
+
+@function aluminum-icon-height($icon) {
+    @return aluminum-px2em(aluminum-sprite-attr($icon, height));
+}

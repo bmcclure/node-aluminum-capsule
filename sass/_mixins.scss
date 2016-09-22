@@ -1,0 +1,46 @@
+@mixin aluminum-ie-sprite($icon, $type: all) {
+    $iconMap: aluminum-icon-attr($icon);
+
+    @if $ieSprite {
+        #{$ieSprite} & {
+            @if $type == all {
+                // Share the PNG background
+                @extend %ie-sprite;
+            }
+
+            // Output dimensions
+            @if $type == all or $type == size {
+                width: map-get($iconMap, width);
+                height: map-get($iconMap, height);
+            }
+
+            // Output background position
+            @if $type == all or $type == bg {
+                background-position: (map-get($iconMap, x) - 5) (map-get($iconMap, y) - 5);
+            }
+        }
+    }
+}
+
+@mixin aluminum-sprite($icon, $type: all) {
+    @if $type == all {
+        // Share the backgrounds
+        @extend %sprite;
+    }
+
+    $iconMap: aluminum-icon-attr($icon);
+
+    // Output dimensions in em
+    @if $type == all or $type == size {
+        width: aluminum-px2em(map-get($iconMap, width) + 1);
+        height: aluminum-px2em(map-get($iconMap, height) + 1);
+    }
+
+    // Output background position in em
+    @if type == all or $type == bg {
+        background-position: aluminum-px2em(map-get($iconMap, x)) aluminum-px2em(map-get($iconMap, y));
+    }
+
+    // Add IE fallback
+    @include aluminum-ie-sprite($icon, $type);
+}

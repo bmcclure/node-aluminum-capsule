@@ -1,0 +1,9 @@
+%sprite {
+    display: inline-block;
+    background-image: asset-url(map-get($sprite, svgPath));
+    background-size: aluminum-px2em(map-get($sprite, width)) aluminum-px2em(map-get($sprite, height));
+}
+
+%ie-sprite {
+    background-image: asset-url(map-get($sprite, pngPath))
+}
