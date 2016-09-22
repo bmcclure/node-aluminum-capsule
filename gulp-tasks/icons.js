@@ -10,7 +10,7 @@ var size = require('gulp-size');
 var gutil = require('gulp-util');
 
 module.exports = function (gulp, config) {
-    gulp.task('icons', ['icons:asset-urls']);
+    gulp.task('icons', ['icons:png-sprite']);
 
     gulp.task('icons:sprite', function () {
         if (!config.icons.enabled) {
@@ -81,18 +81,5 @@ module.exports = function (gulp, config) {
                 showFiles: true
             }))
             .pipe(gulp.dest(config.paths.images || './images'))
-    });
-
-    gulp.task('icons:asset-urls', ['icons:png-sprite'], function () {
-        var dir = "src/scss/generated";
-        var cssFile = config.icons.cssFile || "src/scss/generated/_icons.scss";
-
-        if (!config.icons.enabled || !config.sassImages.enabled) {
-            return;
-        }
-
-        return gulp.src(cssFile)
-            .pipe(replace(/url\(("images\/[^"]+")\)/g, 'asset-url($1)'))
-            .pipe(gulp.dest(dir));
     });
 };
