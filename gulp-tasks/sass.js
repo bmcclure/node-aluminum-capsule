@@ -57,7 +57,7 @@ module.exports = function (gulp, config) {
                 notify().write(error);
                 this.emit('end');
             }))
-            .pipe(bless())
+            //.pipe(bless())
             .pipe(postcss(processors))
             .pipe(sourcemaps.write(config.paths.maps))
             .pipe(gulp.dest(config.paths.css))
