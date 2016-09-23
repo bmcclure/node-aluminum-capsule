@@ -9,8 +9,6 @@ var eyeglass = require('eyeglass');
 var path = require('path');
 var sassGlob = require('gulp-sass-glob');
 var postcss = require('gulp-postcss');
-var autoprefixer = require('autoprefixer');
-var cssnano = require('cssnano');
 var bless = require('gulp-bless');
 
 function sassOptions(config) {
@@ -43,8 +41,12 @@ module.exports = function (gulp, config) {
         }
 
         var processors = [
-            autoprefixer({browsers: [config.sass.browserSupport]}),
-            cssnano()
+            require('postcss-import')(),
+            require('postcss-url')(),
+            require('postcss-cssnext')({browsers: [config.sass.browserSupport]}),
+            require('postcss-csso')(),
+            require('postcss-reporter')(),
+            require('postcss-browser-reporter')()
         ];
 
         return gulp.src(config.sources.scss)
