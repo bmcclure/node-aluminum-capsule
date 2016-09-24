@@ -1,7 +1,7 @@
 /**
  * Created by BMcClure on 9/19/2016.
  */
-var fontgen = require('gulp-fontgen');
+//var fontgen = require('gulp-fontgen');
 var path = require('path');
 
 module.exports = function (gulp, config) {
@@ -10,11 +10,13 @@ module.exports = function (gulp, config) {
             return;
         }
 
-        return gulp.src(config.sources.fonts)
+        return;
+
+        /*return gulp.src(config.sources.fonts)
             .pipe(fontgen({
                 dest: config.paths.fonts,
                 css: path.join(config.paths.generatedScss, config.fonts.cssFile),
                 css_fontpath: config.paths.fonts
-            }));
+            }));*/
     });
 };
