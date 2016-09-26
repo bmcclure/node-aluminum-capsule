@@ -1,6 +1,6 @@
 {
   "name": "aluminum-capsule",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "A front-end companion to the aluminum module and/or spacelift base theme for Drupal.",
   "license": "MIT",
   "repository": {
@@ -58,7 +58,8 @@
     "postcss-csso": "^1.1.2",
     "postcss-import": "^8.1.2",
     "postcss-reporter": "^1.4.1",
-    "postcss-url": "^5.1.2"
+    "postcss-url": "^5.1.2",
+    "resolve-pkg": "^0.2.0"
   },
   "devDependencies": {},
   "eyeglass": {

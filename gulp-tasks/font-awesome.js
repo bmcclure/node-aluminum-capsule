@@ -3,9 +3,10 @@
  */
 var rename = require('gulp-rename');
 var path = require('path');
+var resolvePkg = require('resolve-pkg');
 
 function fontAwesomePath(subpath) {
-    var modulePath = require.resolve('font-awesome');
+    var modulePath = resolvePkg('font-awesome');
     return path.join(path.dirname(modulePath), subpath);
 }
 
