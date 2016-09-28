@@ -4,8 +4,6 @@
 var fs = require('fs');
 var path = require('path');
 
-var configFile = path.join(path.dirname(module.parent.filename), './config.json');
-
 function gulpTask(name, gulp, config) {
     gulp = gulp || require('gulp');
     config = config || require('./lib/config')();
@@ -18,7 +16,7 @@ module.exports = {
         gulpTask(name, gulp, config);
     },
     gulpTasks: function (gulp, config) {
-        config = config || require('./lib/config')(configFile);
+        config = config || require('./lib/config')();
 
         tasks = config.gulp.tasks || [
                 'drush',
