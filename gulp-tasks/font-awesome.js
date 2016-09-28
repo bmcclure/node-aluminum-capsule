@@ -7,7 +7,7 @@ var resolvePkg = require('resolve-pkg');
 
 function fontAwesomePath(subpath) {
     var modulePath = resolvePkg('font-awesome');
-    return path.join(path.dirname(modulePath), subpath);
+    return path.join(modulePath, subpath);
 }
 
 module.exports = function (gulp, config) {
