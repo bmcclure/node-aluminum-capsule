@@ -32,7 +32,7 @@ module.exports = function (gulp, config) {
         });
     });
 
-    gulp.task('modernize:generate', function () {
+    gulp.task('modernizer:generate', function () {
         if (!config.modernizr.enabled) {
             return;
         }
