@@ -1,6 +1,6 @@
 {
   "name": "aluminum-capsule",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A front-end companion to the aluminum module and/or spacelift base theme for Drupal.",
   "license": "MIT",
   "repository": {
@@ -38,7 +38,9 @@
     "font-awesome": "^4.6.3",
     "gulp": "^3.9.1",
     "gulp-bless": "^3.1.0",
+    "gulp-clean": "^0.3.2",
     "gulp-fontgen": "^0.2.5",
+    "gulp-foreach": "^0.1.0",
     "gulp-modernizr": "^1.0.0-alpha",
     "gulp-notify": "^2.2.0",
     "gulp-postcss": "^6.2.0",
@@ -53,6 +55,7 @@
     "gulp-svg2png": "^2.0.0",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
+    "node-notifier": "^4.6.1",
     "postcss-browser-reporter": "^0.5.0",
     "postcss-cssnext": "^2.8.0",
     "postcss-csso": "^1.1.2",

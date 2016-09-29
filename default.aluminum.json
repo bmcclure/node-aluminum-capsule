@@ -6,14 +6,17 @@
         "fonts": "fonts",
         "maps": "maps/",
         "icons": "images/icons",
-        "generatedScss": "src/scss/generated"
+        "generatedScss": "src/scss/generated",
+        "fontsCss": "src/scss/fonts",
+        "iconsCss": "src/scss/icons"
     },
     "sources": {
         "scss": "src/scss/**/*.scss",
         "images": "images/**/*.+(jpeg|jpg|png|gif|svg)",
         "fonts": "src/fonts/*.{ttf,otf}",
         "js": "src/js/**/*.js",
-        "icons": "src/icons/*.svg",
+        "icons": "src/icons",
+        "iconFiles": "*.svg",
         "twig": "templates/**/*.html.twig"
     },
     "gulp": {
@@ -51,6 +54,7 @@
         "enabled": false,
         "watch": true,
         "destination": "./",
+        "cssExt": ".scss",
         "maxWidth": 32,
         "maxHeight": 32,
         "padding": 5,
@@ -60,8 +64,7 @@
     },
     "fonts": {
         "enabled": false,
-        "watch": true,
-        "cssFile": "_fonts.scss"
+        "watch": true
     },
     "fontAwesome": {
         "enabled": false,

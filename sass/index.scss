@@ -1,7 +1,9 @@
-$icons: (sprite: (width: 0, height: 0)) !default;
 $mq-base-font-size: 16px !default;
 $ieSprite: '.lt-ie9' !default;
-$sprite: map-get($icons, sprite) !default;
+
+@function aluminum-sprite($sprite) {
+    @return map-get($sprite, sprite);
+}
 
 @function aluminum-px2em($px, $base-font-size: $mq-base-font-size) {
     @if unitless($px) {
@@ -14,8 +16,8 @@ $sprite: map-get($icons, sprite) !default;
     @return ($px / $base-font-size) * 1em;
 }
 
-@function aluminum-sprite-attr($icon, $attr) {
-    $newIcon: map-get($icons, $icon);
+@function aluminum-sprite-attr($sprite, $icon, $attr) {
+    $newIcon: map-get($sprite, $icon);
 
     @if $newIcon == null {
         @warn "Can't find an icon with the name #{$icon}";
@@ -24,53 +26,37 @@ $sprite: map-get($icons, sprite) !default;
     @return map-get($newIcon, $attr);
 }
 
-@function aluminum-icon-attr($icon) {
+@function aluminum-icon-attr($sprite, $icon) {
     $attr: (
-        width: aluminum-sprite-attr($icon, width),
-        height: aluminum-sprite-attr($icon, height),
-        x: aluminum-sprite-attr($icon, backgroundX),
-        y: aluminum-sprite-attr($icon, backgroundY)
+        width: aluminum-sprite-attr($sprite, $icon, width),
+        height: aluminum-sprite-attr($sprite, $icon, height),
+        x: aluminum-sprite-attr($sprite, $icon, backgroundX),
+        y: aluminum-sprite-attr($sprite, $icon, backgroundY)
     );
 
     @return $attr;
 }
 
-@function aluminum-icon-width($icon) {
-    @return aluminum-px2em(aluminum-sprite-attr($icon, width));
+@function aluminum-icon-width($sprite, $icon) {
+    @return aluminum-px2em(aluminum-sprite-attr($sprite, $icon, width));
 }
 
-@function aluminum-icon-height($icon) {
-    @return aluminum-px2em(aluminum-sprite-attr($icon, height));
+@function aluminum-icon-height($sprite, $icon) {
+    @return aluminum-px2em(aluminum-sprite-attr($sprite, $icon, height));
 }
 
-%sprite {
-    display: inline-block;
-    @if function-exists(asset-url) {
-        background-image: asset-url(map-get($sprite, svgPath));
-    } @else {
-        background-image: url(map-get($sprite, svgPath));
-    }
-
-    background-size: aluminum-px2em(map-get($sprite, width)) aluminum-px2em(map-get($sprite, height));
-}
-
-%ie-sprite {
-    @if function-exists(asset-url) {
-        background-image: asset-url(map-get($sprite, pngPath))
-    } @else {
-        background-image: url(map-get($sprite, pngPath))
-    }
-
-}
-
-@mixin aluminum-ie-sprite($icon, $type: all) {
-    $iconMap: aluminum-icon-attr($icon);
+@mixin aluminum-ie-sprite($sprite, $icon, $type: all) {
+    $iconMap: aluminum-icon-attr($sprite, $icon);
 
     @if $ieSprite {
         #{$ieSprite} & {
             @if $type == all {
                 // Share the PNG background
-                @extend %ie-sprite;
+                @if function-exists(asset-url) {
+                    background-image: asset-url(map-get(aluminum-sprite($sprite), pngPath))
+                } @else {
+                    background-image: url(map-get(aluminum-sprite($sprite), pngPath))
+                }
             }
 
             // Output dimensions
@@ -87,13 +73,21 @@ $sprite: map-get($icons, sprite) !default;
     }
 }
 
-@mixin aluminum-sprite($icon, $type: all) {
+@mixin aluminum-icon($sprite, $icon, $type: all) {
     @if $type == all {
         // Share the backgrounds
-        @extend %sprite;
+        display: inline-block;
+
+        @if function-exists(asset-url) {
+            background-image: asset-url(map-get(aluminum-sprite($sprite), svgPath));
+        } @else {
+            background-image: url(map-get($sprite, svgPath));
+        }
+
+        background-size: aluminum-px2em(map-get(aluminum-sprite($sprite), width)) aluminum-px2em(map-get(aluminum-sprite($sprite), height));
     }
 
-    $iconMap: aluminum-icon-attr($icon);
+    $iconMap: aluminum-icon-attr($sprite, $icon);
 
     // Output dimensions in em
     @if $type == all or $type == size {
@@ -107,5 +101,5 @@ $sprite: map-get($icons, sprite) !default;
     }
 
     // Add IE fallback
-    @include aluminum-ie-sprite($icon, $type);
+    @include aluminum-ie-sprite($sprite, $icon, $type);
 }
