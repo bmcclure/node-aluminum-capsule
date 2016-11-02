@@ -26,6 +26,7 @@ module.exports = {
                 'sass',
                 'scripts',
                 'modernizr',
+                'assets',
                 'browser-sync',
                 'watch',
                 'default'

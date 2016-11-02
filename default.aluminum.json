@@ -28,12 +28,14 @@
             "sass",
             "scripts",
             "modernizr",
+            "assets",
             "browser-sync",
             "watch",
             "default"
         ],
         "excludeTasks": []
     },
+    "assets": {},
     "browserSync": {
         "enabled": false,
         "hostname": "localhost",
