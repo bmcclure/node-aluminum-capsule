@@ -1,76 +1,76 @@
 {
-  "name": "aluminum-capsule",
-  "version": "0.5.5",
-  "description": "A front-end companion to the aluminum module and/or spacelift base theme for Drupal.",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/TopFloorTech/node-aluminum-capsule"
-  },
-  "author": {
-    "name": "Ben McClure",
-    "email": "ben.mcclure@gmail.com",
-    "url": "http://www.topfloortech.com"
-  },
-  "directories": {
-    "lib": "lib"
-  },
-  "files": [
-    "index.js",
-    "gulp-tasks",
-    "lib",
-    "templates",
-    "sass",
-    "default.aluminum.json"
-  ],
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "keywords": [
-    "eyeglass-module",
-    "sass"
-  ],
-  "dependencies": {
-    "browser-sync": "^2.16.0",
-    "deep-assign": "^2.0.0",
-    "del": "^2.2.2",
-    "eyeglass": "^1.1.0",
-    "font-awesome": "^4.6.3",
-    "gulp": "^3.9.1",
-    "gulp-bless": "^3.1.0",
-    "gulp-changed": "^1.3.2",
-    "gulp-clean": "^0.3.2",
-    "gulp-count": "^0.3.0",
-    "gulp-fontgen": "^0.2.5",
-    "gulp-foreach": "^0.1.0",
-    "gulp-modernizr": "^1.0.0-alpha",
-    "gulp-notify": "^2.2.0",
-    "gulp-postcss": "^6.2.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.5.4",
-    "gulp-sass": "^2.3.2",
-    "gulp-sass-glob": "^1.0.6",
-    "gulp-shell": "^0.5.2",
-    "gulp-size": "^2.1.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-svg-sprite": "^1.3.6",
-    "gulp-svg2png": "^2.0.0",
-    "gulp-uglify": "^2.0.0",
-    "gulp-util": "^3.0.7",
-    "postcss-browser-reporter": "^0.5.0",
-    "postcss-cssnext": "^2.8.0",
-    "postcss-csso": "^1.1.2",
-    "postcss-import": "^8.1.2",
-    "postcss-reporter": "^1.4.1",
-    "postcss-url": "^5.1.2",
-    "resolve-pkg": "^0.2.0",
-    "shelljs": "^0.7.4"
-  },
-  "devDependencies": {},
-  "eyeglass": {
-    "exports": false,
     "name": "aluminum-capsule",
-    "needs": "*",
-    "sassDir": "sass"
-  }
+    "version": "0.5.6",
+    "description": "A front-end companion to the aluminum module and/or spacelift base theme for Drupal.",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/TopFloorTech/node-aluminum-capsule"
+    },
+    "author": {
+        "name": "Ben McClure",
+        "email": "ben.mcclure@gmail.com",
+        "url": "http://www.topfloortech.com"
+    },
+    "directories": {
+        "lib": "lib"
+    },
+    "files": [
+        "index.js",
+        "gulp-tasks",
+        "lib",
+        "templates",
+        "sass",
+        "default.aluminum.json"
+    ],
+    "engines": {
+        "node": ">= 4.0"
+    },
+    "keywords": [
+        "eyeglass-module",
+        "sass"
+    ],
+    "dependencies": {
+        "browser-sync": "^2.16.0",
+        "deep-assign": "^2.0.0",
+        "del": "^2.2.2",
+        "eyeglass": "^1.1.0",
+        "font-awesome": "^4.6.3",
+        "gulp": "^3.9.1",
+        "gulp-bless": "^3.1.0",
+        "gulp-changed": "^1.3.2",
+        "gulp-clean": "^0.3.2",
+        "gulp-count": "^0.3.0",
+        "gulp-fontgen": "^0.2.5",
+        "gulp-foreach": "^0.1.0",
+        "gulp-modernizr": "^1.0.0-alpha",
+        "gulp-notify": "^2.2.0",
+        "gulp-postcss": "^6.2.0",
+        "gulp-rename": "^1.2.2",
+        "gulp-replace": "^0.5.4",
+        "gulp-sass": "^2.3.2",
+        "gulp-sass-glob": "^1.0.6",
+        "gulp-shell": "^0.5.2",
+        "gulp-size": "^2.1.0",
+        "gulp-sourcemaps": "^1.6.0",
+        "gulp-svg-sprite": "^1.3.6",
+        "gulp-svg2png": "^2.0.0",
+        "gulp-uglify": "^2.0.0",
+        "gulp-util": "^3.0.7",
+        "postcss-browser-reporter": "^0.5.0",
+        "postcss-cssnext": "^2.8.0",
+        "postcss-csso": "^1.1.2",
+        "postcss-import": "^8.1.2",
+        "postcss-reporter": "^1.4.1",
+        "postcss-url": "^5.1.2",
+        "resolve-pkg": "^0.2.0",
+        "shelljs": "^0.7.4"
+    },
+    "devDependencies": {},
+    "eyeglass": {
+        "exports": false,
+        "name": "aluminum-capsule",
+        "needs": "*",
+        "sassDir": "sass"
+    }
 }
