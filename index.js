@@ -28,6 +28,7 @@ module.exports = {
                 'modernizr',
                 'assets',
                 'browser-sync',
+                'build',
                 'watch',
                 'default'
             ];

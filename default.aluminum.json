@@ -30,6 +30,7 @@
             "modernizr",
             "assets",
             "browser-sync",
+            "build",
             "watch",
             "default"
         ],
