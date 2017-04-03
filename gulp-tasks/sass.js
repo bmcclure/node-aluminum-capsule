@@ -40,10 +40,16 @@ module.exports = function (gulp, config) {
             return;
         }
 
+        var cssNextOptions = {};
+
+        if (config.sass.browserSupport) {
+            cssNextOptions.browsers = [config.sass.browserSupport];
+        }
+
         var processors = [
             require('postcss-import')(),
             require('postcss-url')(),
-            require('postcss-cssnext')({browsers: [config.sass.browserSupport]}),
+            require('postcss-cssnext')(cssNextOptions),
             require('postcss-csso')(),
             require('postcss-reporter')(),
             require('postcss-browser-reporter')()
