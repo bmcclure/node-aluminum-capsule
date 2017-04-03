@@ -42,8 +42,8 @@ module.exports = function (gulp, config) {
 
         var cssNextOptions = {};
 
-        if (config.sass.browserSupport) {
-            cssNextOptions.browsers = [config.sass.browserSupport];
+        if (config.sass.browsers) {
+            cssNextOptions.browsers = config.sass.browsers;
         }
 
         var processors = [

@@ -95,7 +95,7 @@
         "watch": true,
         "httpPrefix": "",
         "assetsPattern": "{css,fonts,images}/**/*",
-        "browserSupport": "last 2 versions",
+        "browsers": false,
         "includePaths": [
             "./css"
         ]
