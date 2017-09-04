@@ -11,13 +11,13 @@
         "iconsCss": "src/scss/icons"
     },
     "sources": {
-        "scss": "src/scss/**/*.scss",
+        "scss": ["src/scss/**/*.scss", "components/*/scss/**/*.scss"],
         "images": "images/**/*.+(jpeg|jpg|png|gif|svg)",
         "fonts": "src/fonts/*.{ttf,otf}",
-        "js": "src/js/**/*.js",
+        "js": ["src/js/**/*.js", "components/*/js/**/*.js"],
         "icons": "src/icons",
         "iconFiles": "*.svg",
-        "twig": "templates/**/*.html.twig"
+        "twig": ["templates/**/*.html.twig", "components/*/templates/**/*.html.twig"]
     },
     "gulp": {
         "includeTasks": [
@@ -85,7 +85,9 @@
         },
         "sources": [
             "./src/js/**/*.js",
+            "./components/*/js/**.*.js",
             "./src/scss/**/*.scss",
+            "./components/*/scss/**/*.scss",
             "./js/**/*.js",
             "!./js/modernizr.js"
         ]
