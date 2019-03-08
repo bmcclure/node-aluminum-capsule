@@ -8,8 +8,9 @@ function fontAwesomePath(subpath) {
 }
 
 module.exports = function (gulp, config) {
-    gulp.task('font-awesome:fonts', function () {
+    gulp.task('font-awesome:fonts', function (done) {
         if (!config.fontAwesome.enabled) {
+            done()
             return
         }
 
@@ -17,8 +18,9 @@ module.exports = function (gulp, config) {
             .pipe(gulp.dest(config.paths.fonts))
     })
 
-    gulp.task('font-awesome:sass', gulp.series('font-awesome:fonts', function () {
+    gulp.task('font-awesome:sass', gulp.series('font-awesome:fonts', function (done) {
         if (!config.fontAwesome.enabled) {
+            done()
             return
         }
 

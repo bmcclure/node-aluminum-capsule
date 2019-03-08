@@ -31,8 +31,9 @@ function sassOptions(config) {
  * This task generates CSS from all SCSS files and compresses them down.
  */
 module.exports = function (gulp, config) {
-    gulp.task('sass', gulp.series('font-awesome', function () {
+    gulp.task('sass', gulp.series('font-awesome', function (done) {
         if (!config.sass.enabled) {
+            done()
             return;
         }
 

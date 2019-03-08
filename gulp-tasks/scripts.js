@@ -6,8 +6,9 @@ var notify = require('gulp-notify')
  * This task minifies javascript in the js/js-src folder and places them in the js directory.
  */
 module.exports = function (gulp, config) {
-    gulp.task('scripts', function () {
+    gulp.task('scripts', function (done) {
         if (!config.scripts.enabled) {
+            done()
             return
         }
 

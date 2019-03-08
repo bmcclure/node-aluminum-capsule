@@ -5,7 +5,7 @@ var fs = require('fs')
 var path = require('path')
 
 function generateModernizr(gulp, config) {
-    gulp.src(config.modernizr.sources)
+    return gulp.src(config.modernizr.sources)
         .pipe(modernizr(config.modernizr.options))
         .pipe(uglify())
         .pipe(gulp.dest(config.paths.js))
@@ -17,23 +17,25 @@ function generateModernizr(gulp, config) {
 }
 
 module.exports = function (gulp, config) {
-    gulp.task('modernizr', function () {
+    gulp.task('modernizer:generate', function (done) {
         if (!config.modernizr.enabled) {
+            done()
             return
         }
 
-        fs.stat(path.join(config.paths.js, './modernizr.js'), function(err, stat) {
+        return generateModernizr(gulp, config)
+    })
+
+    gulp.task('modernizr', function (done) {
+        if (!config.modernizr.enabled) {
+            done()
+            return
+        }
+
+        return fs.stat(path.join(config.paths.js, './modernizr.js'), function(err, stat) {
             if(err) {
                 generateModernizr(gulp, config)
             }
         })
-    })
-
-    gulp.task('modernizer:generate', function () {
-        if (!config.modernizr.enabled) {
-            return
-        }
-
-        generateModernizr(gulp, config)
     })
 }

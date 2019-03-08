@@ -2,8 +2,6 @@ var changed = require('gulp-changed')
 var count = require('gulp-count')
 
 module.exports = function (gulp, config) {
-    gulp.task('assets', gulp.series('assets:copy'))
-
     /**
      * This task copies assets from other locations if they're different than what's already in the destination
      */
@@ -24,4 +22,6 @@ module.exports = function (gulp, config) {
 
         done()
     })
+
+    gulp.task('assets', gulp.series('assets:copy'))
 }

@@ -6,10 +6,9 @@ var path = require('path')
 var flatmap = require('gulp-flatmap')
 
 module.exports = function (gulp, config) {
-    gulp.task('icons', gulp.series('icons:png-sprites'))
-
-    gulp.task('icons:sprites', function () {
+    gulp.task('icons:sprites', function (done) {
         if (!config.icons.enabled) {
+            done()
             return
         }
 
@@ -78,4 +77,6 @@ module.exports = function (gulp, config) {
             }))
             .pipe(gulp.dest(config.paths.images))
     }))
+
+    gulp.task('icons', gulp.series('icons:png-sprites'))
 }

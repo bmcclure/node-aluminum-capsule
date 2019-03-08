@@ -6,19 +6,9 @@ var replace = require('gulp-replace')
 var vinylPaths = require('vinyl-paths')
 
 module.exports = function (gulp, config) {
-    gulp.task('fonts', gulp.series('fonts:sass', function () {
+    gulp.task('fonts:generate', function (done) {
         if (!config.fonts.enabled) {
-            return
-        }
-
-        notifier.notify({
-            title: "Web Fonts Generated",
-            message: "All web fonts have been regenerated."
-        })
-    }))
-
-    gulp.task('fonts:generate', function () {
-        if (!config.fonts.enabled) {
+            done()
             return
         }
 
@@ -32,8 +22,9 @@ module.exports = function (gulp, config) {
             }))
     })
 
-    gulp.task('fonts:sass', gulp.series('fonts:generate', function () {
+    gulp.task('fonts:sass', gulp.series('fonts:generate', function (done) {
         if (!config.fonts.enabled) {
+            done()
             return
         }
 
@@ -45,5 +36,19 @@ module.exports = function (gulp, config) {
                 extname: ".scss"
             }))
             .pipe(gulp.dest(config.paths.fontsCss))
+    }))
+
+    gulp.task('fonts', gulp.series('fonts:sass', function (done) {
+        if (!config.fonts.enabled) {
+            done()
+            return
+        }
+
+        notifier.notify({
+            title: "Web Fonts Generated",
+            message: "All web fonts have been regenerated."
+        })
+
+        done()
     }))
 }

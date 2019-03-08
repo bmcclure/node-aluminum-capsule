@@ -1,7 +1,3 @@
-var sourcemaps = require('gulp-sourcemaps');
-var uglify = require('gulp-uglify');
-var notify = require('gulp-notify');
-
 function watchTask(gulp, config, files, task, conditionalTasks) {
     var propName = task.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); })
     conditionalTasks = conditionalTasks || {}
@@ -25,7 +21,7 @@ function watchTask(gulp, config, files, task, conditionalTasks) {
  * Defines the watcher task.
 */
 module.exports = function (gulp, config) {
-    gulp.task('watch', function () {
+    gulp.task('watch', function (done) {
         watchTask(gulp, config, config.sources.icons, "icons")
         watchTask(gulp, config, config.sources.fonts, "fonts")
         watchTask(gulp, config, config.sources.scss, "sass", { "drush": ["drush:cr"] })
@@ -35,5 +31,7 @@ module.exports = function (gulp, config) {
         if (config.twig.enabled && !config.twig.useCache && config.drush.enabled) {
             gulp.watch(config.sources.twig, ['drush:cr'])
         }
+
+        done()
     })
 }
