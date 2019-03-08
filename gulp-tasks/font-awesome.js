@@ -1,36 +1,33 @@
-/**
- * Created by BMcClure on 9/19/2016.
- */
-var rename = require('gulp-rename');
-var path = require('path');
-var resolvePkg = require('resolve-pkg');
+var rename = require('gulp-rename')
+var path = require('path')
+var resolvePkg = require('resolve-pkg')
 
 function fontAwesomePath(subpath) {
-    var modulePath = resolvePkg('font-awesome');
-    return path.join(modulePath, subpath);
+    var modulePath = resolvePkg('font-awesome')
+    return path.join(modulePath, subpath)
 }
 
 module.exports = function (gulp, config) {
     gulp.task('font-awesome:fonts', function () {
         if (!config.fontAwesome.enabled) {
-            return;
+            return
         }
 
         return gulp.src(fontAwesomePath('fonts/fontawesome-webfont.*'))
-            .pipe(gulp.dest(config.paths.fonts));
-    });
+            .pipe(gulp.dest(config.paths.fonts))
+    })
 
-    gulp.task('font-awesome:sass', ['font-awesome:fonts'], function () {
+    gulp.task('font-awesome:sass', gulp.series('font-awesome:fonts', function () {
         if (!config.fontAwesome.enabled) {
-            return;
+            return
         }
 
         // TODO: Use actual font-awesome SASS and support variable overrides
 
         return gulp.src(fontAwesomePath('css/font-awesome.css'))
             .pipe(rename(config.fontAwesome.cssFile))
-            .pipe(gulp.dest(config.paths.generatedScss));
-    });
+            .pipe(gulp.dest(config.paths.generatedScss))
+    }))
 
-    gulp.task('font-awesome', ['font-awesome:sass']);
-};
+    gulp.task('font-awesome', gulp.series('font-awesome:sass'))
+}

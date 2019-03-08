@@ -1,28 +1,23 @@
-/**
- * Created by BMcClure on 9/17/2016.
- */
-var svgSprite = require('gulp-svg-sprite');
-var svg2png = require('gulp-svg2png');
-var replace = require('gulp-replace');
-var del = require('del');
-var notify = require('gulp-notify');
-var size = require('gulp-size');
-var path = require('path');
-var foreach = require('gulp-foreach');
+var svgSprite = require('gulp-svg-sprite')
+var svg2png = require('gulp-svg2png')
+var notify = require('gulp-notify')
+var size = require('gulp-size')
+var path = require('path')
+var flatmap = require('gulp-flatmap')
 
 module.exports = function (gulp, config) {
-    gulp.task('icons', ['icons:png-sprites']);
+    gulp.task('icons', gulp.series('icons:png-sprites'))
 
     gulp.task('icons:sprites', function () {
         if (!config.icons.enabled) {
-            return;
+            return
         }
 
-        var defaultScssTemplate = path.join(path.dirname(__dirname), 'templates/sprite-template.scss.mustache');
+        var defaultScssTemplate = path.join(path.dirname(__dirname), 'templates/sprite-template.scss.mustache')
 
         return gulp.src(path.join(config.sources.icons, './*'), {base: config.sources.icons})
-            .pipe(foreach(function (stream, file) {
-                var spriteName = path.basename(file);
+            .pipe(flatmap(function (stream, file) {
+                var spriteName = path.basename(file)
                 var spriteConfig = {
                     shape: {
                         dimension: {
@@ -62,7 +57,7 @@ module.exports = function (gulp, config) {
                         pngPath: config.paths.icons + '.png',
                         svgPath: config.paths.icons + '.svg'
                     }
-                };
+                }
 
                 return stream
                     .pipe(svgSprite(spriteConfig))
@@ -72,16 +67,15 @@ module.exports = function (gulp, config) {
                 title: "Icon Sprites Generated",
                 message: "All SVG icon sprites have been generated.",
                 onLast: true
-            }));
-    });
+            }))
+    })
 
-
-    gulp.task('icons:png-sprites', ['icons:sprites'], function () {
+    gulp.task('icons:png-sprites', gulp.series('icons:sprites', function () {
         return gulp.src(path.join(config.paths.icons, './**/*.svg'))
             .pipe(svg2png())
             .pipe(size({
                 showFiles: true
             }))
             .pipe(gulp.dest(config.paths.images))
-    });
-};
+    }))
+}

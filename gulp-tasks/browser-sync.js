@@ -1,16 +1,13 @@
-/**
- * Created by BMcClure on 9/17/2016.
- */
-var browserSync = require('browser-sync').create;
+var browserSync = require('browser-sync').create
 
 /**
  * Define a task to spawn Browser Sync.
  * Options are defaulted, but can be overridden within your config.js file.
  */
 module.exports = function (gulp, config) {
-    gulp.task('browser-sync', function () {
+    gulp.task('browser-sync', function (done) {
         if (!config.browserSync.enabled) {
-            return;
+            return
         }
 
         browserSync.init({
@@ -19,6 +16,8 @@ module.exports = function (gulp, config) {
             open: config.browserSync.openAutomatically,
             reloadDelay: config.browserSync.reloadDelay,
             injectChanges: config.browserSync.injectChanges
-        });
-    });
-};
+        })
+
+        done()
+    })
+}

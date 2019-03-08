@@ -74,7 +74,7 @@
         "src": "",
         "cssFile": "_font-awesome.scss"
     },
-    "kbox": {
+    "lando": {
         "enabled": false
     },
     "modernizr": {

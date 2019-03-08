@@ -1,11 +1,8 @@
-/**
- * Created by BMcClure on 9/17/2016.
- */
-var modernizr = require('gulp-modernizr');
-var notify = require('gulp-notify');
-var uglify = require('gulp-uglify');
-var fs = require('fs');
-var path = require('path');
+var modernizr = require('gulp-modernizr')
+var notify = require('gulp-notify')
+var uglify = require('gulp-uglify')
+var fs = require('fs')
+var path = require('path')
 
 function generateModernizr(gulp, config) {
     gulp.src(config.modernizr.sources)
@@ -16,27 +13,27 @@ function generateModernizr(gulp, config) {
             title: "Modernizr Generated",
             message: "A custom Modernizr file has been generated.",
             onLast: true
-        }));
+        }))
 }
 
 module.exports = function (gulp, config) {
     gulp.task('modernizr', function () {
         if (!config.modernizr.enabled) {
-            return;
+            return
         }
 
         fs.stat(path.join(config.paths.js, './modernizr.js'), function(err, stat) {
             if(err) {
-                generateModernizr(gulp, config);
+                generateModernizr(gulp, config)
             }
-        });
-    });
+        })
+    })
 
     gulp.task('modernizer:generate', function () {
         if (!config.modernizr.enabled) {
-            return;
+            return
         }
 
         generateModernizr(gulp, config)
-    });
-};
+    })
+}
