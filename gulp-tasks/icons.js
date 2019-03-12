@@ -6,7 +6,7 @@ var path = require('path')
 var flatmap = require('gulp-flatmap')
 
 module.exports = function (gulp, config) {
-    gulp.task('icons:sprites', function (done) {
+    function icons_sprites(done) {
         if (!config.icons.enabled) {
             done()
             return
@@ -67,16 +67,20 @@ module.exports = function (gulp, config) {
                 message: "All SVG icon sprites have been generated.",
                 onLast: true
             }))
-    })
+    }
 
-    gulp.task('icons:png-sprites', gulp.series('icons:sprites', function () {
+    function icons_png_sprites() {
         return gulp.src(path.join(config.paths.icons, './**/*.svg'))
             .pipe(svg2png())
             .pipe(size({
                 showFiles: true
             }))
             .pipe(gulp.dest(config.paths.images))
-    }))
+    }
+
+    gulp.task('icons:sprites', icons_sprites)
+
+    gulp.task('icons:png-sprites', gulp.series('icons:sprites', icons_png_sprites))
 
     gulp.task('icons', gulp.series('icons:png-sprites'))
 }

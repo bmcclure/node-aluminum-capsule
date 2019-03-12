@@ -6,7 +6,7 @@ var notify = require('gulp-notify')
  * This task minifies javascript in the js/js-src folder and places them in the js directory.
  */
 module.exports = function (gulp, config) {
-    gulp.task('scripts', function (done) {
+    function scripts(done) {
         if (!config.scripts.enabled) {
             done()
             return
@@ -22,5 +22,7 @@ module.exports = function (gulp, config) {
                 message: "All JS files in the theme have been compiled.",
                 onLast: true
             }))
-    })
+    }
+
+    gulp.task('scripts', scripts)
 }

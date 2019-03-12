@@ -5,7 +5,7 @@ var browserSync = require('browser-sync').create
  * Options are defaulted, but can be overridden within your config.js file.
  */
 module.exports = function (gulp, config) {
-    gulp.task('browser-sync', function (done) {
+    function browser_sync(done) {
         if (config.browserSync.enabled) {
             browserSync.init({
                 port: config.browserSync.port,
@@ -17,5 +17,7 @@ module.exports = function (gulp, config) {
         }
 
         done()
-    })
+    }
+
+    gulp.task('browser-sync', browser_sync)
 }

@@ -6,7 +6,7 @@ var replace = require('gulp-replace')
 var vinylPaths = require('vinyl-paths')
 
 module.exports = function (gulp, config) {
-    gulp.task('fonts:generate', function (done) {
+    function fonts_generate(done) {
         if (!config.fonts.enabled) {
             done()
             return
@@ -20,9 +20,9 @@ module.exports = function (gulp, config) {
                 dest: config.paths.fonts,
                 css_fontpath: config.paths.fonts
             }))
-    })
+    }
 
-    gulp.task('fonts:sass', gulp.series('fonts:generate', function (done) {
+    function fonts_sass(done) {
         if (!config.fonts.enabled) {
             done()
             return
@@ -36,9 +36,9 @@ module.exports = function (gulp, config) {
                 extname: ".scss"
             }))
             .pipe(gulp.dest(config.paths.fontsCss))
-    }))
+    }
 
-    gulp.task('fonts', gulp.series('fonts:sass', function (done) {
+    function fonts(done) {
         if (!config.fonts.enabled) {
             done()
             return
@@ -50,5 +50,11 @@ module.exports = function (gulp, config) {
         })
 
         done()
-    }))
+    }
+
+    gulp.task('fonts:generate', fonts_generate)
+
+    gulp.task('fonts:sass', gulp.series('fonts:generate', fonts_sass))
+
+    gulp.task('fonts', gulp.series('fonts:sass', fonts))
 }

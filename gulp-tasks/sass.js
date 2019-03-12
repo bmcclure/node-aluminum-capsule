@@ -1,5 +1,5 @@
 var sourcemaps = require('gulp-sourcemaps')
-var sass = require('gulp-sass')
+var sassPlugin = require('gulp-sass')
 var log = require('fancy-log')
 var notify = require('gulp-notify')
 var eyeglass = require('eyeglass')
@@ -31,7 +31,7 @@ function sassOptions(config) {
  * This task generates CSS from all SCSS files and compresses them down.
  */
 module.exports = function (gulp, config) {
-    gulp.task('sass', gulp.series('font-awesome', function (done) {
+    function sass(done) {
         if (!config.sass.enabled) {
             done()
             return;
@@ -55,7 +55,7 @@ module.exports = function (gulp, config) {
         return gulp.src(config.sources.scss)
             .pipe(sassGlob())
             .pipe(sourcemaps.init())
-            .pipe(sass(eyeglass(sassOptions(config))).on('error', function (error) {
+            .pipe(sassPlugin(eyeglass(sassOptions(config))).on('error', function (error) {
                 log.error(error)
                 notify().write(error)
                 this.emit('end')
@@ -68,5 +68,7 @@ module.exports = function (gulp, config) {
                 message: "All SASS files have been recompiled to CSS.",
                 onLast: true
             }))
-    }))
+    }
+
+    gulp.task('sass', gulp.series('font-awesome', sass))
 }

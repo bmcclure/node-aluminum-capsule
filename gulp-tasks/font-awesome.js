@@ -8,7 +8,7 @@ function fontAwesomePath(subpath) {
 }
 
 module.exports = function (gulp, config) {
-    gulp.task('font-awesome:fonts', function (done) {
+    function font_awesome_fonts(done) {
         if (!config.fontAwesome.enabled) {
             done()
             return
@@ -16,9 +16,9 @@ module.exports = function (gulp, config) {
 
         return gulp.src(fontAwesomePath('fonts/fontawesome-webfont.*'))
             .pipe(gulp.dest(config.paths.fonts))
-    })
+    }
 
-    gulp.task('font-awesome:sass', gulp.series('font-awesome:fonts', function (done) {
+    function font_awesome_sass(done) {
         if (!config.fontAwesome.enabled) {
             done()
             return
@@ -29,7 +29,11 @@ module.exports = function (gulp, config) {
         return gulp.src(fontAwesomePath('css/font-awesome.css'))
             .pipe(rename(config.fontAwesome.cssFile))
             .pipe(gulp.dest(config.paths.generatedScss))
-    }))
+    }
+
+    gulp.task('font-awesome:fonts', font_awesome_fonts)
+
+    gulp.task('font-awesome:sass', gulp.series('font-awesome:fonts', font_awesome_sass))
 
     gulp.task('font-awesome', gulp.series('font-awesome:sass'))
 }

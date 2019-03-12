@@ -1,4 +1,4 @@
-var modernizr = require('gulp-modernizr')
+var modernizrPlugin = require('gulp-modernizr')
 var notify = require('gulp-notify')
 var uglify = require('gulp-uglify')
 var fs = require('fs')
@@ -6,7 +6,7 @@ var path = require('path')
 
 function generateModernizr(gulp, config) {
     return gulp.src(config.modernizr.sources)
-        .pipe(modernizr(config.modernizr.options))
+        .pipe(modernizrPlugin(config.modernizr.options))
         .pipe(uglify())
         .pipe(gulp.dest(config.paths.js))
         .pipe(notify({
@@ -17,16 +17,16 @@ function generateModernizr(gulp, config) {
 }
 
 module.exports = function (gulp, config) {
-    gulp.task('modernizer:generate', function (done) {
+    function modernizr_generate(done) {
         if (!config.modernizr.enabled) {
             done()
             return
         }
 
         return generateModernizr(gulp, config)
-    })
+    }
 
-    gulp.task('modernizr', function (done) {
+    function modernizr(done) {
         if (!config.modernizr.enabled) {
             done()
             return
@@ -37,5 +37,9 @@ module.exports = function (gulp, config) {
                 generateModernizr(gulp, config)
             }
         })
-    })
+    }
+
+    gulp.task('modernizr:generate', modernizr_generate)
+
+    gulp.task('modernizr', modernizr)
 }

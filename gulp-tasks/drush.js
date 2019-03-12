@@ -20,11 +20,15 @@ function drushCommand(command, gulp, config) {
 }
 
 module.exports = function (gulp, config) {
-    gulp.task('drush:cc', function () {
+    function drush_cc() {
         return drushCommand(config.drush.alias.cc, gulp, config)
-    })
+    }
 
-    gulp.task('drush:cr', function () {
+    function drush_cr() {
         return drushCommand(config.drush.alias.cr, gulp, config)
-    })
+    }
+
+    gulp.task('drush:cc', drush_cc)
+
+    gulp.task('drush:cr', drush_cr)
 }
