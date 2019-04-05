@@ -1,5 +1,5 @@
-var shell = require('gulp-shell')
 var notify = require('gulp-notify')
+var exec = require('child_process').exec
 
 function drushCommand(command, gulp, config, done) {
     if (!config.drush.enabled) {
@@ -11,13 +11,9 @@ function drushCommand(command, gulp, config, done) {
         command = "lando " + command
     }
 
-    return gulp.src('', {read: false})
-        .pipe(shell([command]))
-        .pipe(notify({
-            title: "Drush Command",
-            message: "Ran '" + command + "'",
-            onLast: true
-        }))
+    exec(command, function (err, stdout, stderr) {
+        done(err)
+    })
 }
 
 module.exports = function (gulp, config) {
