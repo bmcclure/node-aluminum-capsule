@@ -50,7 +50,9 @@
         "watchDelay": 50,
         "alias": {
             "cc": "drush cc css-js",
-            "cr": "drush cr"
+            "cr": "drush cr",
+            "cex": "drush cex -y",
+            "cim": "drush cim -y"
         }
     },
     "icons": {

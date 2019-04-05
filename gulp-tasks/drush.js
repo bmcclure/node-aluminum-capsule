@@ -28,7 +28,16 @@ module.exports = function (gulp, config) {
         return drushCommand(config.drush.alias.cr, gulp, config)
     }
 
-    gulp.task('drush:cc', drush_cc)
+    function drush_cex() {
+        return drushCommand(config.drush.alias.cex, gulp, config)
+    }
 
+    function drush_cim() {
+        return drushCommand(config.drush.alias.cim, gulp, config)
+    }
+
+    gulp.task('drush:cc', drush_cc)
     gulp.task('drush:cr', drush_cr)
+    gulp.task('drush:cex', drush_cex)
+    gulp.task('drush:cim', drush_cim)
 }
