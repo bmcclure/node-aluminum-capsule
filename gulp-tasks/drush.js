@@ -1,8 +1,9 @@
 var shell = require('gulp-shell')
 var notify = require('gulp-notify')
 
-function drushCommand(command, gulp, config) {
+function drushCommand(command, gulp, config, done) {
     if (!config.drush.enabled) {
+        done()
         return
     }
 
@@ -20,20 +21,20 @@ function drushCommand(command, gulp, config) {
 }
 
 module.exports = function (gulp, config) {
-    function drush_cc() {
-        return drushCommand(config.drush.alias.cc, gulp, config)
+    function drush_cc(done) {
+        return drushCommand(config.drush.alias.cc, gulp, config, done)
     }
 
-    function drush_cr() {
-        return drushCommand(config.drush.alias.cr, gulp, config)
+    function drush_cr(done) {
+        return drushCommand(config.drush.alias.cr, gulp, config, done)
     }
 
-    function drush_cex() {
-        return drushCommand(config.drush.alias.cex, gulp, config)
+    function drush_cex(done) {
+        return drushCommand(config.drush.alias.cex, gulp, config, done)
     }
 
-    function drush_cim() {
-        return drushCommand(config.drush.alias.cim, gulp, config)
+    function drush_cim(done) {
+        return drushCommand(config.drush.alias.cim, gulp, config, done)
     }
 
     gulp.task('drush:cc', drush_cc)
