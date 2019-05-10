@@ -13,7 +13,7 @@ function watchTask(gulp, config, files, task, conditionalTasks) {
             }
         }
 
-        gulp.watch(files, gulp.parallel(tasks))
+        gulp.watch(files, gulp.series(tasks))
     }
 }
 
