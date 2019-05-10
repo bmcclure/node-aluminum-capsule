@@ -1,6 +1,6 @@
 {
     "name": "aluminum-capsule",
-    "version": "0.6.5",
+    "version": "0.6.6",
     "description": "A full front-end build workflow backed by Gulp with optional tight integration with the Spacelift Drupal 8 theme.",
     "license": "MIT",
     "repository": {
