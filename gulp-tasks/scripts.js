@@ -1,5 +1,5 @@
 var sourcemaps = require('gulp-sourcemaps')
-var uglify = require('gulp-uglify')
+var uglify = require('gulp-uglify-es').default
 var notify = require('gulp-notify')
 
 /**
